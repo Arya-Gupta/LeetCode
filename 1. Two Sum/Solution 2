@@ -1,0 +1,19 @@
+// Time Complexity - The hash table takes O(1) for insertion and searching. Since we are iterating over the entire array once, the time complexity will be O(N). The worst case time complexity for unordered_map occurs when there are collisions for every insertion in the map. Thus time complexity will be O(N^2) during N number of collisions. 
+// Space Complexity - Since we are storing all the values in the hash table, space complexity will be O(N).
+// Explanation - We iterate through the entire array. For every element in the array, we check whether (target - element) is present in the hash table. If it is present, we return the pair of indexes. If it is not present, we insert the element in the array into the hash table.
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int,int> mp;
+        for(int i = 0; i < nums.size(); i++){
+            int num1 = nums[i];
+            int num2 = target - num1;
+            if(mp.find(num2) != mp.end()) // Check whether num2 is present in the hash table
+                return {i, mp[num2]};
+            else // If num2 is not present, insert num1 into the hash table
+                mp[num1] = i; 
+        }
+        return {};
+    }
+};
