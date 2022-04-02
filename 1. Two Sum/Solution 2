@@ -2,6 +2,7 @@
 // Space Complexity - Since we are storing all the values in the hash table, space complexity will be O(N).
 // Explanation - We iterate through the entire array. For every element in the array, we check whether (target - element) is present in the hash table. If it is present, we return the pair of indexes. If it is not present, we insert the element in the array into the hash table.
 
+
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
