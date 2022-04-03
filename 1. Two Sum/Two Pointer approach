@@ -1,0 +1,21 @@
+// Time Complexity - Sorting takes O(NlogN) and a single pass over the array takes O(N). Thus the final time complexity is O(NlogN).
+// Space Complexity - Since we are storing the elements in a new vector, space complexity will be O(N).
+// Explanation - First we store the elements along with their indexes as pairs inside a vector because the array is unsorted and we need to return the indexes. Then we sort the vector and use two pointer approach to find the pair.
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<pair<int,int>> A;
+        int n = nums.size();
+        for(int i = 0; i < n; i++)
+            A.push_back({nums[i], i});
+        sort(A.begin(), A.end());
+        
+        int low = 0, hi = n - 1;
+        while(A[low].first + A[hi].first != target){
+            if(A[low].first + A[hi].first < target) low++;
+            else hi--;
+        }
+        return {A[low].second, A[hi].second};
+    }
+};
