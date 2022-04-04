@@ -1,0 +1,26 @@
+// Time Complexity - The nested for loops create an O(N^2) time complexity and the comparison has a O(1) time complexity. Hence total time complexity is O(N^2).
+// Space Complexity - The auxiliary space complexity is O(1).
+// Explanation - For each element in the array, we check if (target - element) exists in the rest of the array. If it does, we push it into a vector and break out of the loop. 
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int n, x;
+        n = nums.size();
+        vector<int> ans;
+        for(int i = 0; i < n; i++)
+        {
+            x = target - nums[i]; // We search for this number in the rest of the array 
+            for(int j = i + 1; j < n; j++)
+            {
+                if(nums[j] == x)
+                {
+                    ans.push_back(i);
+                    ans.push_back(j);
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+};
