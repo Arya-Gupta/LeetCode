@@ -1,0 +1,34 @@
+// Time Complexity - The outer loop takes O(N) to select the value of a, while the two pointer approach inside it that takes a single pass to find b and c also takes O(N). Thus this has a time complexity of O(N^2).
+// Space Complexity - The auxiliary space complexity is O(1) as we do not take any extra storage apart from the vector that we need to return.
+// Explanation - Using the outer loop we fix the value of a, and using the inner loop we try to find b and c such that b + c = -a. We are careful while selecting a so that we do not select the same value again. If we successfully find b and c, we make sure to move BOTH hi and lo such that they skip over all duplicate values and point to the next unique value. Since we are using a vector, we need to be careful to insert only unique triplets into it. 
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> uniqueTriplets;
+        int n = nums.size();
+        
+        // When i is the third last element, i, i + 1 and i + 2 can be a pair - thus the loop ends at i = n - 3
+        for(int i = 0; i < n - 2; i++){
+            // We pick unique values of nums[i] to avoid repeated triplets
+            if(i == 0 || (i > 0 && nums[i-1] != nums[i])){
+                int lo = i + 1, hi = n - 1, sum = -nums[i]; // If a,b,c are triplets b + c = -a
+                
+                while(lo < hi){
+                    if(nums[lo] + nums[hi] == sum){
+                        uniqueTriplets.push_back({nums[i], nums[lo], nums[hi]}); // We insert the unique triplet into our vector
+                        
+                        // Placing lo and hi to point to next UNIQUE value, avoiding all duplicate values
+                        while(lo < hi && nums[lo] == nums[lo + 1]) lo++;
+                        while(lo < hi && nums[hi] == nums[hi - 1]) hi--;
+                        lo++; hi--;
+                    }
+                    else if(nums[lo] + nums[hi] < sum) lo++;
+                    else hi--;
+                }
+            } 
+        }
+        return uniqueTriplets;
+    }
+};
