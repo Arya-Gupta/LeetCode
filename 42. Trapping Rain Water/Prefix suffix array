@@ -1,0 +1,24 @@
+// Time Complexity - Creation of the prefix and suffix arrays take O(N) each, while the loop to calculate total rainwater trapped takes O(N) itself. Thus the time complexity for this problem is O(N).
+// Space Complexity - The prefix and suffix arrays take O(N) space complexity each. Thus the space complexity for this problem is O(N).
+// Explanation - 
+
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size();
+        vector<int> prefix_max(n);
+        vector<int> suffix_max(n);
+        prefix_max[0] = height[0];
+        suffix_max[n - 1] = height[n - 1];
+        for(int i = 1; i < n; i++) prefix_max[i] = max(prefix_max[i - 1], height[i]); // Creating prefix max array
+        for(int i = n - 2; i >= 0; i--) suffix_max[i] = max(suffix_max[i + 1], height[i]); // Creating suffix max array
+        
+        int totalWater, currWater;
+        totalWater = currWater = 0;
+        for(int i = 0; i < n; i++){
+            currWater = min(prefix_max[i], suffix_max[i]) - height[i]; // Water stored on top of each elevated region
+            totalWater += currWater;
+        }
+        return totalWater;
+    }
+};
