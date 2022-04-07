@@ -1,0 +1,16 @@
+// Time Complexity - Traversing the array takes O(N) time while inserting elements into the set takes O(logN). Thus the entire loop takes O(NlogN). Placing all the elements from the set into the array takes O(N). Hence the total time complexity is O(NlogN) + O(N) = O(NlogN).
+// Space Complexity - Storing elements in the set makes the problem O(N) space complexity.
+// Explanation - We insert all the elements in a set. A set only stores unique values. Thus we now have all the unique values in the set and its size is the k value we return. We place the k unique elements into the original array starting from index 0, and the contents of the rest of the array doesn't matter.
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        set<int> uniqueElements;
+        int n = nums.size();
+        for(auto i : nums) uniqueElements.insert(i);
+        n = uniqueElements.size();
+        int count = -1;
+        for(auto i : uniqueElements) nums[++count] = i;
+        return n;
+    }
+};
