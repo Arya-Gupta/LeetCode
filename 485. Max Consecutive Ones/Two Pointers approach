@@ -1,0 +1,17 @@
+// Time Complexity - Since we do a single pass over the array, time complexity is O(N).
+// Space Complexity - Since we aren't using any external space, space complexity is O(1).
+// Explanation - We loop over the array and store the current number of consecutive ones in the variable count. The value of count becomes 0 as soon as we encounter a zero in the array, as it means that the there are no more consecutive ones. We store the maximum value of count in the variable maxOnes to find the maximum number of consecutive ones.
+
+class Solution {
+public:
+    int findMaxConsecutiveOnes(vector<int>& nums) {
+        int maxOnes, count;
+        maxOnes = count = 0;
+        for(auto i : nums){
+            if(i == 1) count++;
+            else count = 0;
+            maxOnes = max(count, maxOnes);
+        }
+        return maxOnes;
+    }
+};
