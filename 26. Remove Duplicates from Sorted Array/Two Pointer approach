@@ -1,0 +1,15 @@
+// Time Complexity - There is a single pass over the array, thus time complexity is O(N).
+// Space Complexity - We do not use any extra space, thus space complexity is O(1).
+// Explanation - We maintain two pointers i and j such that j is greater than i. If the elements at i and j th positions are unequal, we increment the value of i by 1 and swap the elements at i and j th positions. This makes sure that all the unique elements are moved to the front of the array. At the end of the question, i is the index of the last unique element, so we return i + 1 to denote k.
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int i, temp, n;
+        n = nums.size();
+        i = 0;
+        for(int j = 1; j < n; j++)
+            if(nums[i] != nums[j]) nums[++i] = nums[j];
+        return i + 1; 
+    }
+};
