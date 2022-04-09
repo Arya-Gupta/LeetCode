@@ -5,9 +5,10 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
+        int n = nums.size();
+        if(n < 3) return {};
         sort(nums.begin(), nums.end());
         vector<vector<int>> uniqueTriplets;
-        int n = nums.size();
         
         // When i is the third last element, i, i + 1 and i + 2 can be a pair - thus the loop ends at i = n - 3
         for(int i = 0; i < n - 2; i++){
