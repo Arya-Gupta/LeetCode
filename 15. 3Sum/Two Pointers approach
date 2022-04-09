@@ -13,7 +13,7 @@ public:
         // When i is the third last element, i, i + 1 and i + 2 can be a pair - thus the loop ends at i = n - 3
         for(int i = 0; i < n - 2; i++){
             // We pick unique values of nums[i] to avoid repeated triplets
-            if(i == 0 || (i > 0 && nums[i-1] != nums[i])){
+            if(i == 0 || (i > 0 && nums[i - 1] != nums[i])){
                 int lo = i + 1, hi = n - 1, sum = -nums[i]; // If a,b,c are triplets b + c = -a
                 
                 while(lo < hi){
