@@ -1,0 +1,31 @@
+// Time Complexity - We make a single pass over the entire input, thus time complexity is O(N).
+// Space Complexity - We do not use any extra space, thus space complexity is O(1).
+// Explanation - The length of the actual name cannot be greater than the typed name. At the beginning, we store the name[0] in a variable prevChar. We iterate through the characters in name and typed using two pointers i & j until either reach the end of their respective strings - if the characters at i & j are the same, we update prevChar = arr[i] and icrement the values of i & j to point to the next indexes, if the values are not equal, but typed[j] == prevChar, a key might have been long pressed and thus we increment j. (We use prevChar instead of arr[j - 1] to avoid accessing elements outside the array) If neither of these conditions are true, then there is NO possiblity of wrong press. If i hasn't reached the last index of name after the loop has ended, then there are extra characters left in name which aren't there in typed. If there are ANY more characters in typed, then there SHOULD have been a long press because there are NO more characters in name.
+
+class Solution {
+public:
+    bool isLongPressedName(string name, string typed) {
+        int i = 0, j = 0, n1 = name.size(), n2 = typed.size();
+        if(n1 > n2) return false;
+        char prevChar = name[0];
+        
+        // Loop until either i or j reaches the end of named and typed respectively
+        while(i < n1 && j < n2){
+            if(name[i] == typed[j]){
+                prevChar = name[i];
+                i++; 
+                j++;
+            }
+            else if(typed[j] == prevChar) j++; // Long press
+            else return false;
+        }
+        if(i != n1) return false; // There are extra characters in name which are missing from typed
+        
+        // There may be a few characters left in typed
+        while(j < n2){
+            if(typed[j] == prevChar) j++; // Long press
+            else return false; // Extra characters in typed towards the end
+        }
+        return true;
+    }
+};
