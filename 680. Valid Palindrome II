@@ -1,0 +1,24 @@
+// Time Complexity - We loop through the entire string, hence time complexity is O(N).
+// Space Complexity - Since we do not use any additional space, space complexity is O(1).
+// Explanation - If the string is already a palindrome, we return true. Else, lo and hi point to characters such that s[lo] != s[hi]. Since we can delete 1 character, we see if we can delete s[lo] or s[hi] to create a palindrome. 
+
+class Solution {
+public:
+    bool isPalindrome(string s, int& lo, int& hi){
+        while(lo < hi){
+            if(s[lo] != s[hi]) return false;
+            lo++;
+            hi--;
+        }    
+        return true;
+    }
+    
+    bool validPalindrome(string s) {
+        int n = s.length();
+        int lo = 0, hi = n - 1;
+        if(isPalindrome(s, lo, hi)) return true; // If this condition is not satisfied, currently s[lo] != s[hi]
+        int newLo = lo++, newHi = hi--;
+        if(isPalindrome(s, newLo, hi) || isPalindrome(s, lo, newHi)) return true; // We check to see if s can be a palindrome if we ignore a character
+        return false;
+    }
+};
