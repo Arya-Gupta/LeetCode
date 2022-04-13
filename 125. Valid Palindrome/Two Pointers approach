@@ -1,0 +1,20 @@
+// Time Complexity - Visiting each element in the string once gives O(N) time complexity.
+// Space Complexity - No extra space is used, thus space complexity is O(1).
+// Explanation - We convert the entire string to lowercase first. Then we place lo and hi pointers at the first and last character index respectively. We loop through the array till lo < hi. Inside the loop, we skip all non-alphanumeric characters. Now we check - if lo and hi pointers have crossed each other, or the characters at lo and hi are unequal, the string is not a palindrome. If the characters at lo and hi are equal, we increment the value of lo and decrement the value of hi.
+
+class Solution {
+public:    
+    bool isPalindrome(string s) {
+        int n = s.length();
+        int lo = 0, hi = n - 1;
+        transform(s.begin(), s.end(), s.begin(), ::tolower); // Convert string into lowercase
+        while(lo < hi){
+            while(!isalnum(s[lo]) && lo < hi) lo++; // Ignore non-alphanumeric characters
+            while(!isalnum(s[hi]) && lo < hi) hi--; // Ignore non-alphanumeric characters
+            if(lo > hi || s[lo] != s[hi]) return false; // May be palindrome even if a single character is left after ignoring non-alphanumeric characters
+            lo++; 
+            hi--;
+        } 
+        return true;
+    }
+};
