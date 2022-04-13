@@ -1,0 +1,38 @@
+// Time Complexity - Since we have two nested loops i & j inside which we are traversing the array using two pointers, time complexity is O(N^3).
+// Space Complexity - No extra space is used, thus space complexity is O(1).
+// Explanation - We return an empty array in case nums contains insufficient no of elements. In the given question, a + b + c + d = target. We use nested loops to select values of a and b. For every value of a and b, use two pointers to check if c and d exist to form a quadruplet. If the quadruplet exists, we push it into a vector, and make sure to place lo and hi at their next UNIQUE values in order to avoid duplicates. Since we are using just a vector we need to be careful not to take duplicate triplets. Thus we select values of loop variable i only after checking that it isn't equal to its previous value unless i = 0. We also select j so that it isn't equal to its previous value, EXCEPT for when i takes up a new value.
+
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        if(n < 4) return {}; // We need minimum 4 integers to form a quadruplet
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> uniqueQuadruplets;    
+        
+        for(int i = 0; i < n - 3; i++){
+            // We pick unique values of nums[i] to avoid repeated quadruplets
+            if((i == 0) || (i > 0 && nums[i - 1] != nums[i])){
+                for(int j = i + 1; j < n - 2; j++){
+                    // We pick unique values of nums[j] to avoid repeated quadruplets
+                    if((j == i + 1) || (nums[j - 1] != nums[j])){
+                        int target_2 = target - nums[i] - nums[j]; // If [a, b ,c, d] is a quadruplet, a = nums[i], b = nums[j] and c + d = target - a - b 
+                        int lo = j + 1, hi = n - 1;
+                        while(lo < hi){
+                            if(nums[lo] + nums[hi] > target_2) hi--;
+                            else if(nums[lo] + nums[hi] < target_2) lo++;
+                            else{
+                                uniqueQuadruplets.push_back({nums[i], nums[j], nums[lo], nums[hi]}); // Inserting unique quadruplet into vector
+                                // Placing lo and hi to point to next UNIQUE value, avoiding all duplicate values
+                                while(lo < hi && nums[lo] == nums[lo + 1]) lo++;
+                                while(lo < hi && nums[hi] == nums[hi - 1]) hi--;
+                                lo++; hi--;
+                            } 
+                        }
+                    }
+                }
+            }
+        }
+        return uniqueQuadruplets;  
+    }
+};
