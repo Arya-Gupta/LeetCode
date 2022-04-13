@@ -1,0 +1,23 @@
+// Time Complexity - Looping through the entire array causes O(N) time complexity.
+// Space Complexity - Storing all the array elements in an unordered map causes O(N) space complexity.
+// Explanation - We store all the elements of the array in an hash table. Now we loop through the array for values of M. For each value of M, we remove M from the hash table to avoid taking it as N and check whether N is present. If N is not present, we add back M into the hash table. 
+
+class Solution {
+public:
+    bool checkIfExist(vector<int>& arr) {
+        int N, M, n = arr.size();
+        unordered_map<int, int> mp;
+        
+        // Store all elements in hash table
+        for(auto i : arr) mp[i]++;
+        
+        for(auto i : arr){
+            M = i;
+            N = 2 * M;
+            mp[M]--; // Remove M so that we do not consider its value as N
+            if(mp[N] > 0) return true;
+            mp[M]++; // Add M back into hash table
+        }
+        return false;   
+    }
+};
