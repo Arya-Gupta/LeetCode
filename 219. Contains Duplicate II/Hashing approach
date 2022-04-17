@@ -1,6 +1,6 @@
 // Time Complexity - Since iteration is done over the entire array, time complexity is O(N).
 // Space Complexity - Array elements are stored in a hash table, thus space complexity is O(N).
-// Explanation - We iterate over the array and for every individual element, we check if it is present in the hashmap. If the element is new, we save a element, index pair. Otherwise, the element should already be present in the hashmap. If it is within k distance, we return true. If it is present but NOT within k distance, we update the hashmap with the latest position of the element. 
+// Explanation - We iterate over the array and for every individual element, we check if it is present in the hashmap. If the element is new, we save a element, index pair in the hash map. Otherwise, the element should already be present in the hashmap. If it is within k distance, we return true. If it is present but NOT within k distance, we update the hashmap with the latest position of the element. 
 
 class Solution {
 public:
