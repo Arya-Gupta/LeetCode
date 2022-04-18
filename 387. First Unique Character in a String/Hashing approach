@@ -1,0 +1,16 @@
+// Time Complexity - Iterating through the entire array gives us O(N) time complexity.
+// Space Complexity - Storing all elements in a hashmap gives O(N) space complexity.
+// Explanation - We store character vs frequency in our hashmap. We then iterate throughout the string to find the first character with frequency 1.
+
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        int n = s.length();
+        unordered_map<char, int> mp;
+        for(auto i : s) mp[i]++;
+        for(int i = 0; i < n; i++){
+            if(mp[s[i]] == 1) return i;
+        }
+        return -1;
+    }
+};
