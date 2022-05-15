@@ -1,0 +1,26 @@
+// Time Complexity - Time taken to insert all values of nums into the unordered set is O(N). Time taken to iterate over the array nums is O(N). Time taken by the entire while loop is O(N) as at maximum, we can traverse over all the elements in nums. Thus the total time complexity is O(N).
+// Space Complexity - Total space taken is O(N) which is used by the unordered set.
+// Explanation - We store all the values in the array in an unordered set values. We loop through each element in the array, checking if (element - 1) exists in values. If it doesn't, this means that it is the lowest value possible in the current sequence. We check for the lowest value in the current sequence because we want to avoid looping through the same sequence for each of its member elements, as that would give us a O(N^2) time complexity. We then calculate the length of the current sequence. If the length is greater than all the previous sequences, we store it in a variable.
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        if(!nums.size()) return 0;
+        unordered_set<int> values;
+        int longestSequence = 0;
+        for(auto num : nums) values.insert(num);
+        for(auto num : nums){
+            // Search for the lowest value in a possible sequence so that we do not have to loop through the same sequence multiple times
+            if(!values.count(num - 1)){
+                int currSequence = 1, currNum = num;
+                // We count the length of the sequence starting from currNum
+                while(values.count(currNum + 1)){
+                    currSequence++;
+                    currNum++;
+                }
+                longestSequence = max(longestSequence, currSequence);
+            }
+        }
+        return longestSequence;
+    }
+};
