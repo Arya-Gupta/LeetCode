@@ -1,0 +1,78 @@
+// Time Complexity - The get and put operations have a time complexity of O(1) because searching for a key in unordered map, deleteNode and addNode all occur in O(1) time.
+// Space Complexity -
+// Explanation - A doubly linked list is used to avoid repeatedly checking for NULL value. The unordered map is used to store key vs pointer to node containing key pairs i.e mp[key] will give us pointer to node containing the key and its corresponding value. For the get operation, we try to find if the key already exists. If it does, we return its value, update its position in the doubly linked list as LRU and update its new address in the unordered map. If it doesn't, we return -1. For the put operation, we delete the node if it already exists as now it is LRU and insert the key-value pair as a new node. If the node doesn't exist and the capacity is full, we delete the LRU node and insert the key-value pair as a new node(this node is now LRU node).
+
+class LRUCache {
+public:
+    class node{
+        public:
+            int key;
+            int val;
+            node* next;
+            node* prev;
+            node(int _key, int _val){
+                key = _key;
+                val = _val;
+            }
+    };
+    
+    // Using a doubly linked list
+    node* head = new node(-1, -1); // head node
+    node* tail = new node(-1, -1); // tail node
+    
+    int cap; // capacity of cache
+    unordered_map<int, node*>mp; // stores (key vs pointer to node containing key) pairs
+    
+    LRUCache(int capacity) {
+        // For the initial configuration
+        cap = capacity;
+        head->next = tail;
+        tail->prev = head;
+    }
+    
+    void addNode(node* newNode){
+        // New node added is LRU - so it is right next to head node
+        node* temp = head->next;
+        head->next = newNode;
+        temp->prev = newNode;
+        newNode->next = temp;
+        newNode->prev = head;
+    }
+    
+    void deleteNode(node* delNode){
+        node* temp1 = delNode->prev;
+        node* temp2 = delNode->next;
+        temp1->next = temp2;
+        temp2->prev = temp1;
+    }
+    
+    int get(int key) {
+        if(mp.find(key) != mp.end()){
+            node* resNode = mp[key];
+            int res = resNode->val;
+            // The current node is now our LRU node
+            deleteNode(resNode); 
+            addNode(resNode);
+            mp[key] = head->next; // Update hashmap with new position of node
+            return res;
+        }
+        return -1;
+    }
+    
+    void put(int key, int value) {
+        if(mp.find(key) != mp.end()){
+            // If key already exists in our hashmap, we need to delete its node because it is now LRU
+            node* currNode = mp[key];
+            mp.erase(key); // Key needs to be erased or else we might satisfy the next if condition by mistake
+            deleteNode(currNode);
+        }
+        if(mp.size() == cap){
+            // If the cache capacity is full we delete LRU node
+            mp.erase(tail->prev->key);
+            deleteNode(tail->prev);
+        }
+        // Inserting new node
+        addNode(new node(key, value));
+        mp[key] = head->next; // LRU node is next to the head node
+    }
+};
