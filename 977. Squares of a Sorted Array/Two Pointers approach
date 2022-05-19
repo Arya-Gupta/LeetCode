@@ -1,0 +1,25 @@
+// Time Complexity - Time taken for a single pass over the array is O(N).
+// Space Complexity - We store all the elements in a new vector, resulting in O(N) space complexity.
+// Explanation - We have two pointers lo and hi pointing to the first and last elements of the sorted array. At any given time, only the lowest number (-ve) in the array and the highest number have the potential to form the largest number within the new array after being squared. Thus we compare the absolute values of the elements at lo and hi at each step of the loop to determine which element can form the largest element. We square and add this element to the end of the new array (since we need to maintain a non-decreasing order) and change the positions of the lo and hi pointers accordingly such that lo <= hi.
+
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> squaredArray(n);
+        int lo = 0, hi = n - 1, count = n - 1;
+        while(lo <= hi){
+            int a = nums[lo], b = nums[hi];
+            if(abs(a) < abs(b)){
+                squaredArray[count] = b * b;
+                hi--;
+            } 
+            else{
+                squaredArray[count] = a * a;
+                lo++;
+            } 
+            count--;
+        }
+        return squaredArray;
+    }
+};
