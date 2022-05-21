@@ -17,11 +17,11 @@ public:
     };
     
     // Using a doubly linked list
-    node* head = new node(-1, -1); // head node
-    node* tail = new node(-1, -1); // tail node
+    node* head = new node(-1, -1); // Head node
+    node* tail = new node(-1, -1); // Tail node
     
     int cap; // capacity of cache
-    unordered_map<int, node*>mp; // stores (key vs pointer to node containing key) pairs
+    unordered_map<int, node*>mp; // Stores (key vs pointer to node containing key) pairs
     
     LRUCache(int capacity) {
         // For the initial configuration
