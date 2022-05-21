@@ -1,6 +1,6 @@
 // Time Complexity - The get and put operations have a time complexity of O(1) because searching for a key in unordered map, deleteNode and addNode all occur in O(1) time.
 // Space Complexity -
-// Explanation - A doubly linked list is used to avoid repeatedly checking for NULL value. The unordered map is used to store key vs pointer to node containing key pairs i.e mp[key] will give us pointer to node containing the key and its corresponding value. For the get operation, we try to find if the key already exists. If it does, we return its value, update its position in the doubly linked list as LRU and update its new address in the unordered map. If it doesn't, we return -1. For the put operation, we delete the node if it already exists as now it is LRU and insert the key-value pair as a new node. If the node doesn't exist and the capacity is full, we delete the LRU node and insert the key-value pair as a new node(this node is now LRU node).
+// Explanation - A doubly linked list is used to avoid repeatedly checking for NULL value. The unordered map is used to store key vs pointer to node containing key-value pairs i.e mp[key] will give us pointer to node containing the key and its corresponding value. For the get operation, we try to find if the key already exists. If it does, we return its value, update its position in the doubly linked list as LRU and update its new address in the unordered map. If it doesn't, we return -1. For the put operation, we delete the node if it already exists as now it is LRU and insert the key-value pair as a new node. If the node doesn't exist and the capacity is full, we delete the LRU node and insert the key-value pair as a new node(this node is now LRU node).
 
 class LRUCache {
 public:
@@ -21,7 +21,7 @@ public:
     node* tail = new node(-1, -1); // Tail node
     
     int cap; // capacity of cache
-    unordered_map<int, node*>mp; // Stores (key vs pointer to node containing key) pairs
+    unordered_map<int, node*>mp; // Stores (key vs pointer to node) pairs
     
     LRUCache(int capacity) {
         // For the initial configuration
