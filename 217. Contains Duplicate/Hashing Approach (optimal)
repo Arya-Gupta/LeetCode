@@ -1,0 +1,13 @@
+// Time Complexity - Insertion in unordered_set takes O(1) time. Since we iterate over the entire array once, the time complexity is O(N).
+// Space Complexity - Storing the values in the unordered_set takes O(N) space.
+// Explanation - We iterate over the entire array, storing all the values in an unordered_set, which only stores unique values. If all the values are unique, then the size of the unordered_set and nums should be equal.
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_set<int> uniqueValues;
+        for(auto num : nums) uniqueValues.insert(num);
+        if(uniqueValues.size() != nums.size()) return true;
+        return false;
+    }
+};
