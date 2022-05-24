@@ -1,0 +1,16 @@
+// Time Complexity - Iterating over the array takes O(N) time.
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - The value of sum is updated to 0 because we can never achieve the maximum sum by taking a negative value. However, we do not ignore negative elements - because in doing so we might have to ignore a positive value upon taking which, we might have obtained the maximum sum possible.
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int sum = 0, max_sum = nums[0];
+        for(auto num : nums){
+            sum += num;
+            max_sum = max(sum, max_sum);
+            if(sum < 0) sum = 0; // Taking a negative value can never provide maximum sum
+        }
+        return max_sum;
+    }
+};
