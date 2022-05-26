@@ -1,0 +1,26 @@
+// Time Complexity - A single loop over the array takes O(N) time.
+// Space Complexity - Storing all elements in an unordered_map takes O(N) space.
+// Explanation - We can generate subarrays of the given array by calculating cumulative sum and subtracting different subarrays from it. If both subarray 1 and subarray 2 leave the same remainder on being divided by k, we can say that the subarray formed from their difference will give us a continuous subarray whose sum is a multiple of k. Thus, as we iterate through the array, we store remainder-index pairs at each index in an unordered_map. This allows us to find out if, for any given subarray, another subarray already exists in the map such that the remainder that is left on dividing the cumulative subarray by k is equal to the remainder left by the cumulative sum of the current subarray on doing the same. If a subarray already has remainder = 0, there is no need to search for another subarray with remainder 0 as we have already found our answer - there is no need of another such subarray. Thus we manually insert mp[0] = -1 to obtain the length of the current subarray having remainder 0.
+
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        // Let n1 = x * k + rem1 and n2 = y * k + rem2 then n1 - n2 = (x - y) * k + (rem1 - rem2)
+        // n1 - n2 is a multiple of k iff rem1 - rem2 = 0 or, rem1 = rem2
+        int n = nums.size(), sum = 0;
+        unordered_map<int, int> mp;
+        mp[0] = -1; // For any iteration, if rem == 0, length of subarray = i - (-1) = i + 1
+        for(int i = 0; i < n; i++){
+            sum += nums[i]; // Cumulative sum
+            int rem = sum % k; 
+            if(mp.find(rem) != mp.end()){
+                int subarray_length = i - mp[rem];
+                if(subarray_length > 1) return true; // Length of subarray must be at least 2
+            }
+            else{
+                mp[rem] = i;   
+            } 
+        }
+        return false;
+    }
+};
