@@ -1,0 +1,33 @@
+// Time Complexity - Traversing the array takes O(N) time
+// Space Complexity - Space complexity is O(1) assuming we do not need to store all the characters in the string at once in the hashmap (size of window != size of string)
+// Explanation - We traverse through the string and generate all substrings using sliding window approach. If the size of the window equals the number of unique characters in the hashmap, the substring is a good substring.
+
+
+class Solution {
+public:
+    int countGoodSubstrings(string s) {
+        int n = s.length();
+        if(n < 3) return 0;
+        int i = 0, j = 0, goodSubstringCount = 0;
+        unordered_map<char, int> mp;
+        
+        // Traversing through the array
+        while(j < n){
+            mp[s[j]]++;
+            
+            if(j - i + 1 < 3){
+                j++; // Increase the size of window
+            }
+            
+            else if(j - i + 1 == 3){
+                if(mp.size() == 3) goodSubstringCount++; // No repetition
+                // Move the window
+                if(mp[s[i]] == 1) mp.erase(s[i]);
+                else mp[s[i]]--;
+                i++;
+                j++;
+            }
+        }
+        return goodSubstringCount;
+    }
+};
