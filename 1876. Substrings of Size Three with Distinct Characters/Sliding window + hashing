@@ -13,17 +13,20 @@ public:
         
         // Traversing through the array
         while(j < n){
+            // Calculation part
             mp[s[j]]++;
             
+            // Window length not achieved yet
             if(j - i + 1 < 3){
-                j++; // Increase the size of window
+                j++; 
             }
             
             else if(j - i + 1 == 3){
+                // Finding the answer
                 if(mp.size() == 3) goodSubstringCount++; // No repetition
-                // Move the window
                 if(mp[s[i]] == 1) mp.erase(s[i]);
                 else mp[s[i]]--;
+                // Move the window
                 i++;
                 j++;
             }
