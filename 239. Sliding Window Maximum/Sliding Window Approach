@@ -1,0 +1,44 @@
+// Time Complexity - Since we iterate over the entire array, time taken is O(N).
+// Space Complexity - Storing elements in a list occupies O(N) space.
+// Explanation - We use a list to store the maximum value for each window. As we slide the window, at every value of j, we store its value in our list if the number is greater than L.back(), else we keep popping elements from the back of the list until we satisfy this condition, and then store the element. After reaching the sliding window size, at each iteration, the front of the list gives us the maximum value of the current window. We remove the ith value from the list in case it is present in the list (since insertion is done serially, if the ith value is present in the list, it will be present at the front of the list) and slide the window.
+
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        int n = nums.size(); 
+        if(n < k) return {*max_element(nums.begin(), nums.end())};
+        int i = 0, j = 0;
+        list<int> L;
+        vector<int> ans;
+        
+        // A smaller number to the right MIGHT become the greatest number in future
+        // A greater number to the right means that the numbers to its left will never become the greatest number
+        
+        while(j < n){
+            // If V[j] is greater than V.back() we pop L.back()
+            while(!L.empty() && L.back() < nums[j]){
+                L.pop_back();
+            }
+            L.push_back(nums[j]);
+            // Window size not reached yet
+            if(j - i + 1 < k){
+                j++;
+            }
+            
+            else if(j - i + 1 == k){
+                // Maximum element is present at the front of the list
+                ans.push_back(L.front());
+                // Remove jth element in the vector if it is present in the front of the list
+                // If the element is not at the front of the list then it isn't present at all because we are inserting serially
+                if(nums[i] == L.front()){
+                    L.pop_front();
+                }
+                
+                // Move window
+                i++;
+                j++;
+            }
+        }
+        return ans;
+    }
+};
