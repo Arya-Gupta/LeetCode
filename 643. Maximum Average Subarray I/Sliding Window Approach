@@ -1,0 +1,32 @@
+// Time Complexity - Time taken to traverse the entire array is O(N).
+// Space Complexity - Since we do not require any extra space, space complexity is O(1).
+// Explanation - We need to find the maximum average of a constant amount of numbers k. Therefore, the maximum sum of k numbers will give us the maximum average. Thus after we find the maximum sum of window size k, we divide it by k to find the maximum window average of size k.
+
+class Solution {
+public:
+    double findMaxAverage(vector<int>& nums, int k) {
+        int n = nums.size();
+        int i = 0, j = 0;
+        int sum = 0, max_sum = INT_MIN;
+        
+        while(j < n){
+            sum += nums[j]; 
+            
+            // Window size not reached yet
+            if(j - i + 1 < k){
+                j++; 
+            }
+            
+            // Once we have window of size k
+            else if(j - i + 1 == k){
+                max_sum = max(sum, max_sum);
+                 
+                // Move window
+                sum -= nums[i]; 
+                i++; 
+                j++;
+            }
+        }
+        return (double) max_sum / k;
+    }
+};
