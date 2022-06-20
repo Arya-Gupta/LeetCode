@@ -1,0 +1,14 @@
+// Time Complexity - Iterating through the array takes O(N) time
+// Space Complexity - Since we do not use any extra space, space complexity is O(1)
+// Explanation - Sum of distinct integers from 0 to n can be calculated as n * (n + 1) / 2
+
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int n = nums.size();
+        int sum1 = 0;
+        for(auto num : nums) sum1 += num;
+        int sum2 = n * (n + 1) / 2;
+        return sum2 - sum1;
+    }
+};
