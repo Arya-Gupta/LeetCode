@@ -1,0 +1,15 @@
+// Time Complexity - Sorting the array takes O(NlogN) time
+// Space Complexity - No extra space is used, so space complexity is O(1)
+// Explanation - We iterate through the array starting from 1 to n and if an element is equal to its previous element, we have found a value that occurs at least twice.
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        for(int i = 1; i < n; i++){
+            if(nums[i] == nums[i - 1]) return true;
+        }
+        return false;
+    }
+};
