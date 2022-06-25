@@ -1,0 +1,32 @@
+// Time Complexity - Traversing over the entire array once takes O(N) time.
+// Space Complexity - Since the window size is variable, space complexit is O(N).
+// Explanation - We keep increasing our window by incrementing i. If the size of the hashmap is equal to the length of substring (no repeating characters), we store the max length. If the size of the hashmap is less than the size of the window (repeating characters are present), we keep removing characters from the hashmap till no repeating characters are present.
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.length();
+        if(!n) return n;
+        int i = 0, j = 0, longest_length = INT_MIN;
+        unordered_map<char, int> mp;
+        
+        while(j < n){
+            mp[s[j]]++;
+            
+            if(mp.size() == j - i + 1){
+                longest_length = max(longest_length, j - i + 1);
+                j++;
+            }
+            
+            else if(mp.size() < j - i + 1){
+                while(mp.size() < j - i + 1){
+                    mp[s[i]]--;
+                    if(!mp[s[i]]) mp.erase(s[i]);
+                    i++;
+                }
+                j++;
+            }
+        }
+        return longest_length;
+    }
+};
