@@ -1,5 +1,5 @@
 // Time Complexity - Traversing over the entire array once takes O(N) time.
-// Space Complexity - Since the window size is variable, space complexit is O(N).
+// Space Complexity - Since the window size is variable, space complexity is O(N).
 // Explanation - We keep increasing our window by incrementing i. If the size of the hashmap is equal to the length of substring (no repeating characters), we store the max length. If the size of the hashmap is less than the size of the window (repeating characters are present), we keep removing characters from the hashmap till no repeating characters are present.
 
 class Solution {
