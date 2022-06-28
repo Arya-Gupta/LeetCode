@@ -1,0 +1,31 @@
+// Time Complexity - Iterating over the array takes O(N) time.
+// Space Complexity - Storing the elements in a hashmap takes O(N) space.
+// Explanation - We have to find the longest subarray with no of unique elements <= 2. A subarray with 1 unique character might be longer than a subarray with 2 unique characters.
+
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        int n = fruits.size();
+        unordered_map<int, int> mp;
+        int i = 0, j = 0, k = 2, longest_length = 0;
+        
+        while(j < n){
+            mp[fruits[j]]++;
+            
+            if(mp.size() <= k){
+                longest_length = max(longest_length, j - i + 1);
+                j++;
+            }
+            
+            else if(mp.size() > k){
+                while(mp.size() > k){
+                    mp[fruits[i]]--;
+                    if(!mp[fruits[i]]) mp.erase(fruits[i]);
+                    i++;
+                }
+                j++;
+            }
+        }
+        return longest_length;
+    }
+};
