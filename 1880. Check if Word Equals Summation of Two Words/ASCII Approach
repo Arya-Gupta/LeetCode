@@ -1,0 +1,20 @@
+// Time Complexity - Since we access each letter once, time complexity is O(N).
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - Letter value indicates position of an alphabet starting from 0. Thus, letter value of 'a' is its ASCII value - 97 = 0. Letter value of b is 98 - 97 = 1, and so on. For each word, we find the letter values of its individual characters to finally form the numerical value of the entire word.
+
+class Solution {
+public:
+    int findNumericalValue(string s){
+        int letterValue = 0;
+        for(auto letter : s){
+            int val = (int) letter - 97;
+            letterValue = letterValue * 10 + val;
+        }
+        return letterValue;
+    }
+    
+    bool isSumEqual(string firstWord, string secondWord, string targetWord) {
+        if(findNumericalValue(firstWord) + findNumericalValue(secondWord) == findNumericalValue(targetWord)) return true;
+        return false;
+    }
+};
