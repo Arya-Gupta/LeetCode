@@ -1,7 +1,7 @@
 // Time Complexity - Iterating through the array takes O(N) time.
 // Space Complexity - Storing the elements in the hashmap takes O(N) space.
-// Explanation - This question is similar to 
-<a href="https://github.com/Arya-Gupta/LeetCode/tree/main/523.%20Continuous%20Subarray%20Sum">1 - Chrome dev tools</a>
+// Explanation - This question is similar to: https://github.com/Arya-Gupta/LeetCode/tree/main/523.%20Continuous%20Subarray%20Sum
+As we iterate throughout the array, we maintain a cumulative sum. We find the remainder for each iteration using the findRemainder function (which is necessary because numbers may be negative). If we find that the current remainder is present in the hashmap, we increase the value of count accordingly. Before ending the loop, we increment the frequency of the current remainder.
 
 class Solution {
 public:
@@ -14,7 +14,7 @@ public:
         int n = nums.size(), sum = 0;
         unordered_map<int, int> mp;
         int count = 0;
-        mp[0]++; 
+        mp[0]++; // In case the remainder of a subarray is 0
         for(int i = 0; i < n; i++){
             sum += nums[i]; 
             int rem = findRemainder(sum, k);
