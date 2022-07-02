@@ -1,6 +1,6 @@
 // Time Complexity - Iterating through the array takes O(N) time.
 // Space Complexity - Storing the elements in the hashmap takes O(N) space.
-// Explanation - This question is similar to <a href="https://github.com/Arya-Gupta/LeetCode/tree/main/523.%20Continuous%20Subarray%20Sum">this question</a>. 
+// Explanation - This question is similar to <a src="https://github.com/Arya-Gupta/LeetCode/tree/main/523.%20Continuous%20Subarray%20Sum">this question</a>. 
 
 class Solution {
 public:
