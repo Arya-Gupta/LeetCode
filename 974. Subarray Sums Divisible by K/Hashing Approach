@@ -11,6 +11,8 @@ public:
     }
     
     int subarraysDivByK(vector<int>& nums, int k) {
+        // Let n1 = x * k + rem1 and n2 = y * k + rem2 then n1 - n2 = (x - y) * k + (rem1 - rem2)
+        // n1 - n2 is a multiple of k iff rem1 - rem2 = 0 or, rem1 = rem2
         int n = nums.size(), sum = 0;
         unordered_map<int, int> mp;
         int count = 0;
