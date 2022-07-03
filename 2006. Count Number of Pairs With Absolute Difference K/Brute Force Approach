@@ -1,0 +1,17 @@
+// Time Complexity - Due to nested loops, time complexity is O(N^2).
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - We use nested loops to find all pairs (i, j) such that i < j. Then we check for the given condition.
+
+class Solution {
+public:
+    int countKDifference(vector<int>& nums, int k) {
+        int n = nums.size();
+        int count = 0;
+        for(int i = 0; i < n - 1; i++){
+            for(int j = i + 1; j < n; j++){
+                if(abs(nums[i] - nums[j]) == k) count++;
+            }
+        }
+        return count;
+    }
+};
