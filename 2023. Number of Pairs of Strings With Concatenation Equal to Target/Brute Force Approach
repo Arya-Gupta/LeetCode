@@ -1,0 +1,17 @@
+// Time Complexity - The two nested loops create create a time complexity of O(N^2).
+// Space Complexity - Since we are not using any extra space, space complexity is O(1).
+// Explanation - We take each and every pair possible using nested loops and concatenate the pair to check if we have achieved the target.
+
+class Solution {
+public:
+    int numOfPairs(vector<string>& nums, string target) {
+        int n = nums.size();
+        int count = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                if(i != j && nums[i] + nums[j] == target) count++;
+            }
+        }
+        return count;
+    }
+};
