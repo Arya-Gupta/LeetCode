@@ -1,0 +1,21 @@
+// Time Complexity - Iterating over the array takes O(N) time.
+// Space Complexity - Since we are storing the elements in a hashmap, space complexity is O(N).
+// Explanation - Upon solving the equation |x - y| = k, we find that y can be either x + k or x - k. If these values are present in the hashmap, we can form a pair. Thus for every x in the array, we add the frequency of x + k and x - k to count, and add the current x to the hashmap.
+
+class Solution {
+public:
+    int countKDifference(vector<int>& nums, int k) {
+        int n = nums.size();
+        unordered_map<int, int> mp;
+        int count = 0;
+        // |x - y| = k => y = x + k or y = x - k
+
+        for(auto x : nums){
+            int y1 = x + k;
+            int y2 = x - k;
+            count +=  mp[y1] + mp[y2]; // If y1 and/or y2 is present, they can form a pair with x
+            mp[x]++;
+        }
+        return count;
+    }
+};
