@@ -11,9 +11,7 @@ public:
         // |x - y| = k => y = x + k or y = x - k
 
         for(auto x : nums){
-            int y1 = x + k;
-            int y2 = x - k;
-            count +=  mp[y1] + mp[y2]; // If y1 and/or y2 is present, they can form a pair with x
+            count +=  mp[x + k] + mp[x - k]; // If y1 and/or y2 is present, they can form a pair with x
             mp[x]++;
         }
         return count;
