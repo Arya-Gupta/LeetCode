@@ -1,0 +1,24 @@
+// Time Complexity - Iterating over the entire array takes O(N) time.
+// Space Complexity - Since we are using a hashmap, space complexity is O(N).
+// Explanation - We store all the possible suffixes in a hashmap mp. Iterating over the array, we take each word individually and check if they can be a possible prefix. Once we find a possible prefix, we find the suffix required to be concatenated with it in order to create our target. If we find that this suffix is present in our hashmap mp, we increase the value of count by mp[suffix] (if prefix and suffix are equal, we increase count by mp[suffix] - 1 to avoid taking the same string as prefix and suffix).
+
+class Solution {
+public:
+    int numOfPairs(vector<string>& nums, string target) {
+        int n = nums.size();
+        int prefixLength, targetLength = target.length(), count = 0;
+        unordered_map<string, int> mp;
+        for(auto suffix : nums) mp[suffix]++;
+        
+        for(auto prefix : nums){
+            prefixLength = prefix.length();
+            if(target.substr(0, prefixLength) == prefix){
+                string suffix = target.substr(prefixLength);
+                if(mp.find(suffix) != mp.end()){
+                    count += (prefix == suffix) ? (mp[suffix] - 1) : (mp[suffix]); 
+                }
+            }
+        }
+        return count;
+    }
+};
