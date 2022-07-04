@@ -1,6 +1,6 @@
 // Time Complexity - Iterating over the entire linked list takes O(N) time.
 // Space Complexity - Since we do not use any extra space, space complexity is O(1).
-// Explanation - We initialize 3 pointers prevNode, currNode and nextNode. Initially, prevNode and nextNode point to NULL while currNode points to the head node. We loop through the linked list until currNode becomes a null pointer. For every iteration, we first make nextNode point to the next node of our currNode. Now that we have our nextNode, we make the currNode point to the prevNode instead of of the next node in order to reverse the link. Now we shift our prevNode to point to our currNode and then our currNode to point to nextNode. The loop stops when our currNode points to NULL and thus our prevNode must be pointed to the last node (new head of the reversed linked list).
+// Explanation - We initialize 3 pointers prevNode, currNode and nextNode. Initially, prevNode and nextNode point to NULL while currNode points to the head node. We loop through the linked list until currNode becomes a null pointer. For every iteration, we first make nextNode point to the next node of our currNode. Now that we have our nextNode, we make the currNode point to the prevNode instead of of the next node in order to reverse the link. Now we shift our prevNode to point to our currNode and then our currNode to point to nextNode. The loop stops when our currNode points to NULL and thus our prevNode must be pointing to the last node (new head of the reversed linked list).
 
 class Solution {
 public:
