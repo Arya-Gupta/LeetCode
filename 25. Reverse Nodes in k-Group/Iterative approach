@@ -1,0 +1,7 @@
+// Time Complexity - Iterating over all the nodes once takes O(N) time.
+// Space Complexity - Since we are not using any extra space, space complexity is O(1).
+// Explanation -
+
+A dummy node is created which points to the initial head of the LL.
+We create currNode, nextNode and prevNode - all of which are point to the same address as dummy.
+
