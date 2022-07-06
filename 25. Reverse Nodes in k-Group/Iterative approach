@@ -1,7 +1,51 @@
 // Time Complexity - Iterating over all the nodes once takes O(N) time.
 // Space Complexity - Since we are not using any extra space, space complexity is O(1).
 // Explanation -
-
 A dummy node is created which points to the initial head of the LL.
 We create currNode, nextNode and prevNode - all of which are point to the same address as dummy.
+Then we calculate the length of the LL and store it in a variable called count.
 
+We have a WHILE LOOP running when count >= k.
+At the start of every group of k size, we need to have currNode set as the 1st node and nextNode as the second node.
+Then we run a for loop k times in order to reverse the links for the group of size k  (links of k - 1 nodes are reversed as the first node does not need reversal).
+When the for loop ends - prevNode is a pointer to the last node in the group of size k, currNode->next stores the address which helps us travel to the next set of nodes.
+We now change prevNode to point to currNode - because it is necessary to store the address that will help us travel to next set of nodes.
+Thus, upon the next iteration of the while loop, we can use prevNode->next to set new values of currNode and nextNode.
+
+At the end of thew while loop, we return our new head node which is pointed to by dummy->next.
+HOW? Initially prevNode and dummy are pointing to the same address, hence any change makes to prevNode reflects in dummy. 
+But after reversing the first group of size k, prevNode points to a completely different address and hence dummy->next manages to save the new head node.
+
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if(!head || k == 1) return head;
+        ListNode *dummy = new ListNode(0, head); // Dummy node with value 0 pointing to the initial head of the given LL
+        ListNode *currNode = dummy, *nextNode = dummy, *prevNode = dummy;
+        
+        // Calculate length of LL
+        int count = -1; // The initial value of count is taken as -1 because the dummy node shouldn't be counted
+        while(currNode){
+            count++;
+            currNode = currNode->next;
+        }
+        
+        // Iterating till we have groups of size >= k
+        while(count >= k){
+            // For every group of size k, we need to make sure that currNode is 1st node and nextNode is 2nd node
+            currNode = prevNode->next; // prevNode is the previous node of the previous group and points to the first node of the new group
+            nextNode = currNode->next;
+            
+            // Reverse k - 1 nodes
+            for(int i = 1; i < k; i++){
+                currNode->next = nextNode->next; // currNode keeps track of where we can shift nextNode after a single reversal
+                nextNode->next = prevNode->next; // Reversing the link
+                prevNode->next = nextNode; // prevNode->next stores the address where we can shift currNode (current nextNode is going to be our next currNode)
+                nextNode = currNode->next; // currNode->next indicates the new address of nextNode (nextNode->next cannot be used as it has been reversed)
+            }
+            prevNode = currNode; // prevNode should stand at the last node of the previous reversed group of size k
+            count -= k; // Reversal has been successful for k nodes, so we reduce k from count
+        }
+        return dummy->next; // dummy->next points to the last node of the first reversed group of size k
+    }
+};
