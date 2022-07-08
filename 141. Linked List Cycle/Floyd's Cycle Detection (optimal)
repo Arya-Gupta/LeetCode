@@ -1,0 +1,18 @@
+// Time Complexity - Since it does not take the fast pointer much time to catch up with the slow pointer, time complexity is O(N).
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - This algorithm is also known as Floyd's Cycle Detection algorithm or Tortoise and the Hare algorithm. We have a slow pointer and a fast pointer, both pointing to the head node. For every iteration of the while loop, we move the slow pointer by one and the fast pointer by two. If a cycle exists, the slow and fast pointer will eventually point to the same node.
+
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if(!head || head->next == NULL) return false;
+        ListNode *fast = head, *slow = head;
+   
+        while(fast->next != NULL && fast->next->next != nullptr){
+            fast = fast->next->next;
+            slow = slow->next;
+            if(slow == fast) return true; // If slow and fast pointers meet, there is a cycle
+        }
+        return false;
+    }
+};
