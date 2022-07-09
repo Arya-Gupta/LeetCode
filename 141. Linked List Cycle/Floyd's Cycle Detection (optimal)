@@ -8,7 +8,7 @@ public:
         if(!head || head->next == NULL) return false;
         ListNode *fast = head, *slow = head;
    
-        while(fast->next != NULL && fast->next->next != nullptr){
+        while(fast->next != NULL && fast->next->next != NULL){
             fast = fast->next->next;
             slow = slow->next;
             if(slow == fast) return true; // If slow and fast pointers meet, there is a cycle
