@@ -1,4 +1,4 @@
-## https://leetcode.com/problems/longest-consecutive-sequence/
+## https://leetcode.com/problems/remove-duplicates-from-sorted-list/
 
 **Difficulty - Easy**
 
