@@ -1,0 +1,19 @@
+// Time Complexity - Since we traverse all the nodes, time complexity is O(N).
+// Space Complexity - Storing all the nodes in a hashmap takes O(N) space.
+// Explanation - We iterate over all the nodes starting from the head node. We continue to insert each node into the hashmap. If the node is already there in the hashmap before we insert it, this is the node where the loop begins. If there is no loop, we return NULL.
+
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        unordered_set<ListNode*> s;
+        ListNode *currNode = head;
+        while(currNode){
+            if(s.find(currNode) != s.end()){
+                return currNode;
+            }
+            s.insert(currNode);
+            currNode = currNode->next;
+        }
+        return NULL;
+    }
+};
