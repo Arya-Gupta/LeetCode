@@ -1,4 +1,39 @@
 // Time Complexity - Iterating over the entire LL takes O(N) time.
 // Space Complexity - Since we do not use any extra space, space complexity is O(1).
 // Explanation -
-Read this to understand this problem: https://github.com/Arya-Gupta/450DSA/tree/main/Linked%20List/Remove%20loop%20in%20Linked%20List
+Read this to understand the explanation of this problem: https://github.com/Arya-Gupta/450DSA/tree/main/Linked%20List/Remove%20loop%20in%20Linked%20List
+
+The while loop runs until slow and fast becomes equal or we finish traversing the LL (no loop). 
+
+If case 1 occurs where we finish traversing the LL - we return NULL as there is no loop.
+
+If case 2 occurs, we set the slow pointer to head and run a while loop till we reach the node which is the start of the loop in our LL. 
+We return the address of this node on the completion of our while loop.
+
+If case 3 occurs, both slow and fast are already set to head. This node is the start of the loop in our LL. 
+We do not enter the loop and directly return the address of slow/fast (head node).
+
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if(!head || !head->next) return NULL;
+        ListNode *slow = head, *fast = head;
+        
+        while(fast && fast->next){
+            fast = fast->next->next;
+            slow = slow->next;
+            if(slow == fast) break;
+        }
+        
+        // Case 1 
+        if(slow != fast) return NULL;
+        
+        // Case 2 or 3 (this code executes only if slow == fast)
+        slow = head;
+        while(slow != fast){
+            slow = slow->next;
+            fast = fast->next;
+        }
+        return slow;
+    }
+};
