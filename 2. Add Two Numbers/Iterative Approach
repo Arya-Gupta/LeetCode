@@ -1,0 +1,41 @@
+// Time Complexity - Since we iterate over both the LL, time taken is O(N + M).
+// Space Complexity - Since we create a new LL, space complexity is O(N + M).
+// Explanation - This question is similar to: https://github.com/Arya-Gupta/450DSA/tree/main/Linked%20List/Add%20two%20numbers%20represented%20by%20linked%20lists
+The LL are already reversed in this case and we also have to return a reversed LL.
+
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int carry = 0, sum = 0;
+        ListNode *newNode, *result = NULL, *currNode = NULL;
+        
+        while(l1 || l2){
+            // Calculations
+            sum = carry + (l1 ? l1->val : 0) + (l2 ? l2->val : 0); // Adding values in the two nodes (0 if points to NULL)
+            carry = (sum >= 10 ? 1 : 0); // 1 is carried if the value of sum is 10 or more
+            sum %= 10; // Reduces sum to a single digit 
+            
+            // Creating new LL
+            newNode = new ListNode(sum); // Dynamically allocates a new node to store sum
+            if(!result){
+                result = newNode; // In case this is the first node of our new LL, result stores the head node
+            }
+            else{
+                currNode->next = newNode; // Previous node gets connected to new node
+            }
+            currNode = newNode; // currNode gets updated to new current node
+            
+            // Iteration
+            if(l1) l1 = l1->next;
+            if(l2) l2 = l2->next;
+        }
+        
+        // In case size of number increases after addition, example: 99 + 1 = 100, we will have carry = 1 after the loop ends
+        if(carry > 0){
+            newNode = new ListNode(carry);
+            currNode->next = newNode;
+        }
+        
+        return result;
+    }
+};
