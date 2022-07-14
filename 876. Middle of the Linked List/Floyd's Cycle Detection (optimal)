@@ -1,0 +1,15 @@
+// Time Complexity - Iterating over the LL takes O(N) time. (In this approach we only need a single iteration as compared to the brute force approach which needs two)
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - We have a slow pointer which moves by 1 nodes and a fast pointer which moves by 2 nodes. When the fast pointer will finish traversing the LL (point to the last node or to NULL), our slow pointer will be pointing to the middle node of our LL.
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head){
+        ListNode *slow = head, *fast = head;
+        while(fast && fast->next){
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        return slow;
+    }
+};
