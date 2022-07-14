@@ -1,0 +1,37 @@
+// Time Complexity - Iterating over the entire LL takes O(N) time.
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - We calculate the size of the array using the function calcSize. Our middle node will be the node with index size / 2. We iterate till we find this target node and return the address of this node.
+
+For a LL 1->2->3->4->5
+size = 5
+target = 2 
+
+For a LL 1->2->3->4
+size = 4
+target = 2
+
+class Solution {
+public:
+    int calcSize(ListNode* head){
+        int size = 0;
+        ListNode* currNode = head;
+        while(currNode){
+            currNode = currNode->next;
+            size++;
+        }
+        return size;
+    }
+    
+    ListNode* middleNode(ListNode* head) {
+        int target, count = 0;
+        target = calcSize(head) / 2;
+        ListNode* currNode = head;
+        
+        while(currNode){
+            if(count == target) break;
+            currNode = currNode->next;
+            count++;
+        }
+        return currNode;
+    }
+};
