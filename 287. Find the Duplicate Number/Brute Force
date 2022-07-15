@@ -1,0 +1,19 @@
+// Time Complexity - Sorting the array takes O(NlogN) time.
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - We sort the array and then iterate over it to check for duplicates.
+
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int n = nums.size(); // Each integer is in the range [1, n - 1]
+        sort(nums.begin(), nums.end());
+        int repeatedNo = 0;
+        for(int i = 1; i < n; i++){
+            if(nums[i] == nums[i - 1]){
+                repeatedNo = nums[i];
+                break;
+            }
+        }
+        return repeatedNo;
+    }
+};
