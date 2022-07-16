@@ -1,5 +1,5 @@
 // Time Complexity - Iterating through the LL takes O(N) time.
 // Space Complexity - Since we do not use any extra space, space complexity is O(1).
-// Explanation - See this problem first: https://github.com/Arya-Gupta/450DSA/tree/main/Linked%20List/Remove%20loop%20in%20Linked%20List
+// Explanation - See this problem first: https://github.com/Arya-Gupta/LeetCode/tree/main/142.%20Linked%20List%20Cycle%20II
 
 
