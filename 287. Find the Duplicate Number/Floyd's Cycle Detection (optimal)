@@ -1,5 +1,27 @@
 // Time Complexity - Iterating through the LL takes O(N) time.
 // Space Complexity - Since we do not use any extra space, space complexity is O(1).
 // Explanation - See this problem first: https://github.com/Arya-Gupta/LeetCode/tree/main/142.%20Linked%20List%20Cycle%20II
+Instead of creating a LL, we use the nodes of the array in a similar manner and traverse them using slow and fast pointers in order to eventually find the duplicate number.
 
-
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums){
+        int slow = nums[0], fast = nums[0];
+        
+        // Run a loop which iterates at least once, till slow == fast (indicates that there is a cycle)
+        do{
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while(slow != fast);
+            
+        // Since already know that there will be a cycle, now we find the starting point of the cycle (duplicate number)
+        slow = nums[0]; 
+        
+        // Both slow and fast will stop at the duplicate number
+        while(slow != fast){
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        return slow; 
+    }
+};
