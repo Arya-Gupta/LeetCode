@@ -1,0 +1,33 @@
+// Time Complexity - Iterating over the LL takes O(N) time.
+// Space Complexity - Since we do not use any extra space, the space complexity is O(1).
+// Explanation - This question is similar to: https://github.com/Arya-Gupta/450DSA/blob/main/Linked%20List/Nth%20node%20from%20end%20of%20linked%20list/Two%20Pointers%20Approach%20(Single%20pass)
+But here we need to create a dummy node because we need to perform deletion and even the head node may be deleted.
+After the execution of the second while loop, slow->next is the node that needs to be deleted.
+In case the head node needs to be deleted, slow pointer stops at dummy node which points to head node.
+
+class Solution {
+public:
+    void deleteNode(ListNode* slow){
+        ListNode* temp = slow->next;
+        slow->next = temp->next;
+        delete(temp);
+    }
+    
+    ListNode* removeNthFromEnd(ListNode* head, int n){
+        ListNode * dummy = new ListNode(); 
+        dummy->next = head; // Dummy node pointing to head node
+        ListNode *fast = dummy, *slow = dummy;
+
+        for(int i = 1; i <= n; i++){
+            fast = fast->next;
+        }
+    
+        while(fast->next){
+            fast = fast->next;
+            slow = slow->next;
+        }
+        deleteNode(slow);
+        
+        return dummy->next; // Dummy points to head node
+    }
+};
