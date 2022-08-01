@@ -1,0 +1,4 @@
+// Time Complexity - Two passes over the array take O(N) time.
+// Space Complexity - Since we are creating a new array of the same size, space complexity is O(N).
+// Explanation - We use the counting sort algorithm to sort the array.
+
