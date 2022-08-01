@@ -2,3 +2,23 @@
 // Space Complexity - Since we are creating a new array of the same size, space complexity is O(N).
 // Explanation - We use the counting sort algorithm to sort the array.
 
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int i = 0, j = 0, n = nums.size(), max;
+        max = *max_element(nums.begin(), nums.end()); // Maximum element in the given array
+        vector<int> count(max + 1, 0);      
+        for(auto num : nums) count[num]++;
+        
+        while(i <= max){
+            if(count[i] > 0){
+                nums[j] = i;
+                count[i]--;
+                j++;
+            }
+            else{
+                i++;
+            }
+        } 
+    }
+};
