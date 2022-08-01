@@ -1,0 +1,10 @@
+// Time Complexity - Sorting the array takes O(NlogN) time.
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - In this approach we have simply sorted the array.
+
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+    }
+};
