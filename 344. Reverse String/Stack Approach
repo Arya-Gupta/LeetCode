@@ -1,0 +1,18 @@
+// Time Complexity - Iterating through each character in the string takes O(N) time.
+// Space Complexity - Since we are using a stack equal to the size of the string, space complexity is O(N).
+// Explanation - We use the LIFO property of stack to insert the elements of the given character into it, and then pop out the elements one by one and store it to obtain the reversed character array.
+
+class Solution {
+public:
+    void reverseString(vector<char>& s) {
+        stack<int> st;
+        int i = 0;
+        for(auto ch: s){
+            st.push(ch);
+        }
+        while(!st.empty()){
+            s[i++] = st.top();
+            st.pop();
+        }
+    }
+};
