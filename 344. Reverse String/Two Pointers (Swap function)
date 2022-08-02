@@ -1,0 +1,13 @@
+// Time Complexity - Iterating through the characters in the array takes O(N) time.
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - We place two pointers i & j at the two ends of the array. We swap the characters at i and j while we keep incrementing i and decrementing j, until they cross each other.
+
+class Solution {
+public:
+    void reverseString(vector<char>& s){
+        int i = 0, j = s.size() - 1;
+        while(i < j){
+            swap(s[i++], s[j--]);
+        }
+    }
+};
