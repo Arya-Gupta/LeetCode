@@ -1,0 +1,48 @@
+// Time Complexity - Sorting the array takes O(NlogN) time.
+// Space Complexity - Storing the array elements in a stack takes O(N) space.
+// Explanation -
+The given intervals are first sorted taking into account their first element.
+We push the first pair into the stack.
+Then we loop over the rest of the pairs and compare them to the top of the stack. (we only compare them to the top of the stack because the intervals are sorted)
+If the new pair cannot be merged with the pair at the top of the stack - we push the new pair into the stack.
+If they can be merged - we pop the stack, merge the pairs and push it into the stack.
+Thus the stack now contains the merged intervals.
+We pop out elements one by one from the stack and insert them into a vector of vectors.
+
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        int n = intervals.size(), start1, start2, end1, end2;
+        sort(intervals.begin(), intervals.end());
+        stack<pair<int, int>> st;
+        st.push({intervals[0][0], intervals[0][1]});
+        
+        // Merge intervals and push into stack
+        for(int i = 1; i < n; i++){
+            start1 = st.top().first;
+            end1 = st.top().second;
+            start2 = intervals[i][0];
+            end2 = intervals[i][1];
+            
+            // Cannot merge
+            if(end1 < start2){
+                st.push({start2, end2}); // Pushed to top of the stack
+            }
+            
+            // Merge
+            else{
+                st.pop();
+                st.push({start1, max(end1, end2)});
+            }
+        }
+        
+        // Create vector of merged intervals from stack
+        vector<vector<int>> mergedIntervals;
+        while(!st.empty()){
+            mergedIntervals.push_back({st.top().first, st.top().second});
+            st.pop();
+        }
+        
+        return mergedIntervals;
+    }
+};
