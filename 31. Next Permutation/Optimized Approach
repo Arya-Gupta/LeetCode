@@ -1,10 +1,10 @@
-// Time Complexity -
-// Space Complexity -
+// Time Complexity - Finding index1 and index2 both requires separate linear traversal with time O(N). Reversing the second group also takes O(N). Thus the total time complexity is O(N).
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
 // Explanation -
-Traverse the array linearly from the end - find first index i such that a[i] < a[i + 1] --> index1
-Traverse the array linearly from the end upto arr[i + 1] - find next greater element of arr[i] --> index2
-Swap the elements at index1 and index2
-Reverse everything to the right of index1 to obtain the next permutation
+Step 1 - Traverse the array linearly from the end - find first index i such that a[i] < a[i + 1] --> index1
+Step 2 - Traverse the array linearly from the end upto arr[i + 1] - find next greater element of arr[i] --> index2
+Step 3 - Swap the elements at index1 and index2
+Step 4 - Reverse everything to the right of index1 to obtain the next permutation
 
 As example, let us take 1, 3, 5, 4, 2.
 This can be broken up into two parts - 1, 3 and 5, 4, 2. Notice that 5, 4, 2 is the descending part. 
@@ -18,3 +18,9 @@ As it can be observed, the second group 5, 3, 2 is still in descending order.
 We have already swapped 3 for 4 to result in a greater value - now we need to minimize the second group in order to find the just next permutation.
 We can do this by reversing the second group which will result in it having an ascending order - 2, 3, 5.
 Thus our next greater permutation is 1, 4, 2, 3, 5.
+
+In case we are given a number in descending order - like 5, 4, 3, 2, 1.
+We do not perform any of steps 1 - 3, but for step 4 - we reverse the entire array for it to become 1, 2, 3, 4, 5 as the next greater permutation.
+
+
+
