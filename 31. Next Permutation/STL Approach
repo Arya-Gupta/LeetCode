@@ -1,0 +1,11 @@
+// Time Complexity - Since we are using next_permutation(), time taken will be O(N!).
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation -
+Read more about next_permutation function: https://www.geeksforgeeks.org/stdnext_permutation-prev_permutation-c/
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        next_permutation(nums.begin(), nums.end());
+    }
+};
