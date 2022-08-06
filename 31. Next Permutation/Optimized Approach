@@ -1,4 +1,7 @@
 // Time Complexity -
 // Space Complexity -
 // Explanation -
-If the numbers are in a descending order like 3, 2, 1 - the next permutation will be 1, 2, 3.
+Traverse the array linearly from the end - find first index i such that a[i] > a[i + 1] --> index1
+Traverse the array linearly from the end upto arr[i + 1] - find next greater element of arr[i] --> index2
+Swap the elements at index1 and index2
+Reverse everything to the right of index1 to obtain the next permutation
