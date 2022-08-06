@@ -1,0 +1,4 @@
+// Time Complexity -
+// Space Complexity -
+// Explanation -
+If the numbers are in a descending order like 3, 2, 1 - the next permutation will be 1, 2, 3.
