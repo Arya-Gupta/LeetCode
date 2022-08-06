@@ -22,5 +22,24 @@ Thus our next greater permutation is 1, 4, 2, 3, 5.
 In case we are given a number in descending order - like 5, 4, 3, 2, 1.
 We do not perform any of steps 1 - 3, but for step 4 - we reverse the entire array for it to become 1, 2, 3, 4, 5 as the next greater permutation.
 
-
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int i, j, n = nums.size();
+        
+        // Step 1
+        for(i = n - 2; i >= 0; i--){
+            if(nums[i] < nums[i + 1]) break;
+        }
+        
+        if(i >= 0){
+            // Step 2
+            for(j = n - 1; j > i; j--){
+                if(nums[j] > nums[i]) break; // i is index1, j is index2
+            }
+            swap(nums[i], nums[j]); // Step 3
+        }
+        reverse(nums.begin() + i + 1, nums.end()); // Step 4
+    }
+};
 
