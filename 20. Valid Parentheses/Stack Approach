@@ -1,0 +1,28 @@
+// Time Complexity - Iterating over all the characters in the string takes O(N) time.
+// Space Complexity - Storing all the characters in the string in a stack takes O(N) space.
+// Explanation - 
+The checkBracket function takes in 2 brackets as input and check whether they are the correct pair of opening and closing brackets.
+We iterate over all the characters in the string. 
+For each character excluding the first, we pop the top character in the stack if the current character in the string is its matching pair.
+If the pairs don't match, we push it into the stack.
+
+class Solution {
+public:
+    bool checkBracket(char ch1, char ch2){
+        if(ch1 == '(' && ch2 == ')') return true;
+        else if(ch1 == '{' && ch2 == '}') return true;
+        else if(ch1 == '[' && ch2 == ']') return true;
+        return false;
+    }
+    
+    bool isValid(string s) {
+        stack<char> st;
+        
+        for(auto ch : s){
+            if(!st.empty() && checkBracket(st.top(), ch)) st.pop();
+            else st.push(ch);
+        }
+        
+        return st.empty();
+    }
+};
