@@ -1,0 +1,27 @@
+// Time Complexity - Iterating over the entire array takes O(N) time while iterating through each string takes O(M) time where M is the length of the longest string. Thus time taken is O(N * M).
+// Space Complexity - If the length of the largest string is M, space taken is O(M).
+// Explanation - We iterate through the strings in the array starting from the second, calculating their longest common prefix between the previous longest common prefix and the current string.
+Initially, we take the first string as the longest common prefix.
+
+class Solution {
+public:
+    string giveCommonPrefix(string str1, string str2){
+        int minLength = min(str1.length(), str2.length());
+        string commonPrefix = "";
+        for(int i = 0; i < minLength; i++){
+            if(str1[i] != str2[i]) break;
+            commonPrefix += str1[i];
+        }
+        return commonPrefix;
+    }
+    
+    string longestCommonPrefix(vector<string>& strs) {
+        string prefix = strs[0];
+        int n = strs.size();
+        
+        for(int i = 1; i < n; i++){
+            prefix = giveCommonPrefix(prefix, strs[i]);
+        }
+        return prefix;
+    }
+};
