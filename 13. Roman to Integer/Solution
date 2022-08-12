@@ -1,5 +1,15 @@
 // Time Complexity - Iterating through the entire string takes O(N) time.
+// Space Complexity - We use O(1) space as we do not use any extra space.
+// Explanation -
+The convert function coverts any roman numeral to its equivalent integer.
+We loop through each character in the string. 
+If a character is smaller than its next character, we subtract its value from the next character and add it to ans. On doing this, we also increment i by 1 because now we have taken into account both values of numbers at i and i + 1. (We avoid this check for the last character because there is nothing to compare it to - this will thus enter the else condition and the value will simply get added)
+For any other character, we simply add the value to ans.
 
+Example:
+C = 100, M = 1000
+CM stands for 1000 - 100 = 900 because C is smaller than M and is towards its left.
+MC stands for 1000 + 100 = 1100.
 
 class Solution {
 public:
