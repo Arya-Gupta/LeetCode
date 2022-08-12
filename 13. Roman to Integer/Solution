@@ -1,0 +1,47 @@
+// Time Complexity - Iterating through the entire string takes O(N) time.
+
+
+class Solution {
+public:
+    int convert(char ch){
+        int num = 0;
+        switch(ch){
+            
+            case 'I': num = 1;
+            break;
+            
+            case 'V': num = 5;
+            break;
+            
+            case 'X': num = 10;
+            break;
+            
+            case 'L': num = 50;
+            break;
+            
+            case 'C': num = 100;
+            break;
+            
+            case 'D': num = 500;
+            break;
+            
+            case 'M': num = 1000;
+            break;
+        }
+        return num;
+    }
+    
+    int romanToInt(string s) {
+        int ans = 0, n = s.length();
+        for(int i = 0; i < n; i++){
+            if(i < n - 1 && convert(s[i]) < convert(s[i + 1])){
+                ans += convert(s[i + 1]) - convert(s[i]);
+                i++;
+            }
+            else{
+                ans += convert(s[i]);
+            }
+        }
+        return ans;
+    }
+};
