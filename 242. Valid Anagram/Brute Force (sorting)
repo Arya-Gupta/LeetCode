@@ -1,0 +1,15 @@
+// Time Complexity - Sorting the strings takes O(N) time.
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - If the strings do not contain equal number of characters, they can never be anagrams - so we return -1.
+If they do, we sort them individually and check if they are equal.
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        int n1 = s.length(), n2 = t.length();
+        if(n1 != n2) return false;
+        sort(s.begin(), s.end());
+        sort(t.begin(), t.end());
+        return s == t;
+    }
+};
