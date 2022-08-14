@@ -1,0 +1,20 @@
+// Time Complexity - Iterating over all the characters takes O(N) time.
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - In the following implementation, it is assumed that the characters are stored using 8 bit and there can be 256 possible characters.
+If a character is present in s, we increase its frequency and decrease it if it is present in t. 
+If the strings are anagrams, the frequency array should consist of only 0s.
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        int n1 = s.length(), n2 = t.length();
+        if(n1 != n2) return false;
+        vector<int> characters(256, 0);
+        for(int i = 0; i < n1; i++){
+            characters[s[i]]++;
+            characters[t[i]]--;
+        }
+        for(auto i : characters) if(i) return false;
+        return true;
+    }
+};
