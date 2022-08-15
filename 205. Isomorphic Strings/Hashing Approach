@@ -1,0 +1,38 @@
+// Time Complexity - Iterating over all characters takes O(N) time.
+// Space Complexity - Space taken to store all different types of characters is O(256) = O(1).
+// Explanation - Both the strings should be of the same length for them to be isomorphic.
+We have two vectors v1 and v2 which we use as maps for strings s and t respectively. 
+If a character has never been mapped before, we store it as (character->new value it is mapped to) format with respect to s in v1 and t in v2.
+If the character has been mapped before, we check if the mapping is one-one.
+
+The reason behind using a second vector v2 is in case we come across a particular character like 'a' which has already been mapped to something like 'b'.
+Using v2 will ensure that we do not overwrite the original mapping - we can check if EITHER s[i] or t[i] have already been mapped before.
+
+For example, 
+s: abx
+t: xpk
+
+If we use only 1 vector, 
+a is mapped to x
+b is mapped to p
+x is mapped to k ---> this is prevented by using 2 vectors becauses we would have known that x was already mapped to a and cannot be mapped again
+
+ class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        int n1 = s.length(), n2 = t.length();
+        if(n1 != n2) return false;
+        vector<int> v1(256, 0), v2(256, 0);
+        
+        for(int i = 0; i < n1; i++){
+            // If the character has not been mapped before
+            if(!v1[s[i]] && !v2[t[i]]){
+                v1[s[i]] = t[i];
+                v2[t[i]] = s[i];
+            }
+            // If the character has been mapped before
+            else if(v1[s[i]] != t[i]) return false;
+        }
+        return true;
+    }
+};
