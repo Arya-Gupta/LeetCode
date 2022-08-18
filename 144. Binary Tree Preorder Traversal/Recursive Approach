@@ -1,0 +1,24 @@
+// Time Complexity - Since we are iterating through all the nodes, time taken is O(N).
+// Space Complexity - Space taken is O(H) where H is the height of the tree. In a worst case scenario, where the tree is a skewed binary tree, H = N => space taken is O(N).
+Reason why space complexity is not O(no of nodes) - The addresses are removed from the stack when returning. 
+This space is re-used when making a new call from a level closer to the root. 
+So the maximum numbers of memory addresses on the stack at the same time is the tree height.
+// Explanation - The doPreorder function handles the preorder traversal for our binary tree using recursion.
+We first visit the root node, then the left subtree, and then the right subtree. 
+The base case of our recursion is that we break out whenever we encounter a NULL node.
+
+class Solution {
+public:
+    void doPreorder(TreeNode* currNode, vector<int> &ans){
+        if(!currNode) return;
+        ans.push_back(currNode->val); // Root
+        doPreorder(currNode->left, ans); // Left
+        doPreorder(currNode->right, ans); // Right
+    }
+    
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        doPreorder(root, ans);
+        return ans;
+    }
+};
