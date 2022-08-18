@@ -1,0 +1,24 @@
+// Time Complexity - Since we are iterating through all the nodes, time taken is O(N).
+// Space Complexity - Space taken is O(H) where H is the height of the tree. In a worst case scenario, where the tree is a skewed binary tree, H = N => space taken is O(N).
+Reason why space complexity is not O(no of nodes) - Since we are using recursion, nodes in the call stack are removed while returning.
+This space is re-used later by other nodes.
+So the maximum numbers of nodes that can be in the stack at the same time is the maximum no of nodes possible in a tree from the root to the leaf node.
+// Explanation - The doPostorder function handles the postorder traversal for our binary tree using recursion.
+We first visit the left subtree, then the right subtree, and then the root node. 
+The base case of our recursion is that we break out whenever we encounter a NULL node.
+
+class Solution {
+public:
+    void doPostorder(TreeNode* currNode, vector<int> &ans){
+        if(!currNode) return;
+        doPostorder(currNode->left, ans); // Left
+        doPostorder(currNode->right, ans); // Right
+        ans.push_back(currNode->val); // Root
+    }
+    
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        doPostorder(root, ans);
+        return ans;
+    }
+};
