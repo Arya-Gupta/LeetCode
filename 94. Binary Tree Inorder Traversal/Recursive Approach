@@ -3,7 +3,7 @@
 Reason why space complexity is not O(no of nodes) - Since we are using recursion, nodes in the call stack are removed while returning.
 This space is re-used later by other nodes.
 So the maximum numbers of nodes that can be in the stack at the same time is the maximum no of nodes possible in a tree from the root to the leaf node.
-// Explanation - The doPreorder function handles the preorder traversal for our binary tree using recursion.
+// Explanation - The doInorder function handles the inorder traversal for our binary tree using recursion.
 We first visit the left subtree, then the root node, and then the right subtree. 
 The base case of our recursion is that we break out whenever we encounter a NULL node.
 
