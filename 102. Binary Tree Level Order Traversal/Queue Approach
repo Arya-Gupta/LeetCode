@@ -1,0 +1,36 @@
+// Time Complexity - Since we iterate through all the nodes, time taken is O(N).
+// Space Complexity - Since we store the nodes in a queue, space taken is O(N).
+// Explanation - The vector of vectors levelOrderTraversal stores our level order traversal, while the vector level is used to temporarily store nodes in the current level.
+We initially push the root node inside the queue.
+Using the while loop, we keep iterating through all the nodes in the queue, until the queue becomes empty.
+At each iteration, we traverse each level of the tree. We find out the size of the queue which gives us the no of nodes in the current level. 
+Using the for loop, we visit each node in the current level, one by one.
+For each node, we find out if it has any children to its left and right - and if it does, we insert them into our queue from left to right order (these nodes will be traversed when we reach the next level)
+Then we remove the current node from the queue and insert it into level.
+After we have finished iterating through all the nodes in the current level, our vector level contains all the nodes in the current level. We push level into levelOrderTraversal.
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if(!root) return {};
+        vector<vector<int>> levelOrderTraversal;
+        queue<TreeNode*> Q;
+        Q.push(root); // Pushing in the root node initially
+        
+        // Loop runs until the queue is empty
+        while(!Q.empty()){
+            int sz = Q.size(); // No of nodes inside the queue
+            vector<int> level;
+            // Iterating over all the nodes in the queue
+            for(int i = 0; i < sz; i++){
+                TreeNode* currNode = Q.front();
+                Q.pop(); // Removing node from queue (FIFO)
+                if(currNode->left) Q.push(currNode->left); // Insert node to the left of currNode
+                if(currNode->right) Q.push(currNode->right); // Insert node to the right of currNode
+                level.push_back(currNode->val); // Insert currNode as a part of nodes in the current level
+            }
+            levelOrderTraversal.push_back(level); // Insert the nodes in the current level
+        }
+        return levelOrderTraversal;  
+    }
+};
