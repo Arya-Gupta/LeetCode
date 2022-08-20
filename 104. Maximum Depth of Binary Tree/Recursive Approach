@@ -1,0 +1,13 @@
+// Time Complexity - Since we are visiting all the nodes, time taken is O(N).
+// Space Complexity - In the worst case we have a skewed tree => all the nodes are in our call stack. Thus space taken is O(N).
+// Explanation - For every node, its height is the maximum of the height of its left and right subtrees. In case we try to find the height of a NULL node, we return 0.
+
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(!root) return 0;
+        int leftHeight = maxDepth(root->left);
+        int rightHeight = maxDepth(root->right);
+        return max(leftHeight, rightHeight) + 1; // We add 1 to count the node itself
+    }
+};
