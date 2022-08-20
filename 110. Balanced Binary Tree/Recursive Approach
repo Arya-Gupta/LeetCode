@@ -1,0 +1,24 @@
+// Time Complexity - Since we are visiting all the nodes, time taken is O(N).
+// Space Complexity - In the worst case we have a skewed tree => all the nodes are in our call stack. Thus space taken is O(N).
+// Explanation - First read: https://github.com/Arya-Gupta/LeetCode/tree/main/104.%20Maximum%20Depth%20of%20Binary%20Tree
+We pass our root node to the function dfsHeight. If we get back a valid height, we know that the binary tree is balanced. Else if we get back -1, it is unbalanced.
+
+For each node, we find out its left height and right height. 
+In case either of those are -1 (which indicates that there it has an unbalanced subtree), we immediately return -1 to show that the binary tree is not balanced.
+If the difference between both the heights is more than 1, the binary tree is unbalanced and thus we return -1. 
+Else if it is less than 1, we know that the subtree is balanced, and thus we return the height of the subtree. 
+
+class Solution {
+public:
+    int dfsHeight(TreeNode* root){
+        if(!root) return 0;
+        int leftHeight = dfsHeight(root->left); if(leftHeight == -1) return -1;
+        int rightHeight = dfsHeight(root->right); if(rightHeight == -1) return -1;
+        if(abs(leftHeight - rightHeight) > 1) return -1;
+        return max(leftHeight, rightHeight) + 1; // We add 1 to count the node itself
+    }
+    
+    bool isBalanced(TreeNode* root) {
+        return dfsHeight(root) != -1;    
+    }
+};
