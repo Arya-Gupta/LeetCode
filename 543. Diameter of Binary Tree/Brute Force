@@ -1,0 +1,4 @@
+// Time Complexity -
+// Space Complexity -
+// Explanation - For any node, the length of the longest path passing through that node will be its (left height + right height + 1) - we add 1 for the node itself.
+We can thus calculate the longest paths through each and every node in the binary tree to find which is the maximum.
