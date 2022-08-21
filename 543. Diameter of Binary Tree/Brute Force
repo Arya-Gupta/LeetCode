@@ -1,4 +1,27 @@
-// Time Complexity -
-// Space Complexity -
+// Time Complexity - Since for every node we are finding out its leftHeight and rightHeight, time taken is O(N^2).
+// Space Complexity - Space taken is O(N) for the call stack.
 // Explanation - For any node, the length of the longest path passing through that node will be its (left height + right height + 1) - we add 1 for the node itself.
 We can thus calculate the longest paths through each and every node in the binary tree to find which is the maximum.
+
+class Solution {
+public:
+    int maxLength = 0;
+    int height(TreeNode* root) {
+        if(!root) return 0;
+        int leftHeight = height(root->left);
+        int rightHeight = height(root->right);
+        return max(leftHeight, rightHeight) + 1; // We add 1 to count the node itself
+    }
+    
+    int diameterOfBinaryTree(TreeNode* root) {
+        if(!root) return 0;
+        
+        int leftHeight = height(root->left);
+        int rightHeight = height(root->right);
+        maxLength = max(maxLength, leftHeight + rightHeight);
+        
+        diameterOfBinaryTree(root->left);
+        diameterOfBinaryTree(root->right);
+        return maxLength;
+    }
+};
