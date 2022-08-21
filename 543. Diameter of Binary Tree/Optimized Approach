@@ -1,0 +1,34 @@
+// Time Complexity - Since we traverse all the nodes, time taken is O(N).
+// Space Complexity - Storing the nodes in the call stack takes O(N) space.
+// Explanation - This approach is a modification to: https://github.com/Arya-Gupta/LeetCode/tree/main/104.%20Maximum%20Depth%20of%20Binary%20Tree
+We find the height of each node recursively. In case of each node, we already have the leftHeight and the rightHeight, so we do not need to find them separately.
+We calculate the maximum value of (leftHeight + rightHeight) among all the nodes to find the diamater.
+
+Since our question counts the path length and not the no of nodes, we use (leftHeight + rightHeight) instead of (leftHeight + rightHeight + 1).
+In the following example, for the path 4, 2, 1, 3 has a length of 3. 
+leftHeight of 1 = 2
+rightHeight of 1 = 1
+leftHeight + rightHeight = 3
+
+   1
+   /\
+  2  3
+ /\
+4  5
+
+class Solution {
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+        int diameter = 0;
+        findDiameter(root, diameter);
+        return diameter;
+    }
+    
+    int findDiameter(TreeNode* root, int &diameter){
+        if(!root) return 0;
+        int leftHeight = findDiameter(root->left, diameter);
+        int rightHeight = findDiameter(root->right, diameter);
+        diameter = max(diameter, leftHeight + rightHeight);
+        return max(leftHeight, rightHeight) + 1; // We add 1 to count the node itself
+    }
+};
