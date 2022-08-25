@@ -1,0 +1,52 @@
+// Time Complexity - Since we traverse all the nodes, time taken is O(N).
+// Space Complexity - Since we are storing all the nodes in a queue, space taken is O(N).
+// Explanation - See this problem: https://github.com/Arya-Gupta/450DSA/tree/main/Binary%20Trees/Left%20View%20of%20Binary%20Tree
+Upon reaching every individual level, we add the first node of that level to our vector. The first node of each level from the right constitutes the right view.
+Thus we have changed the order of level order traversal from right to left so that the first node for each level is the rightmost node of that level.
+
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        if(!root) return {};
+        queue<TreeNode*> Q;
+        Q.push(root); 
+        vector<int> rightView;
+
+        while(!Q.empty()){
+            int sz = Q.size(); 
+            rightView.push_back(Q.front()->val); // First node of each level from the left
+            for(int i = 0; i < sz; i++){
+                TreeNode* currNode = Q.front();
+                Q.pop(); 
+                if(currNode->right) Q.push(currNode->right); // Right node first
+                if(currNode->left) Q.push(currNode->left);  // Then left node
+            }
+        }
+        return rightView;  
+    }
+};
+
+Instead of modifying the level order traversal to occur from right to left, we could simply have taken the last node of each level to get the right view.
+
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        if(!root) return {};
+        queue<TreeNode*> Q;
+        Q.push(root); 
+        vector<int> rightView;
+
+        while(!Q.empty()){
+            int sz = Q.size(); 
+            TreeNode* currNode;
+            for(int i = 0; i < sz; i++){
+                currNode = Q.front();
+                Q.pop(); 
+                if(currNode->left) Q.push(currNode->left); 
+                if(currNode->right) Q.push(currNode->right); 
+            }
+            rightView.push_back(currNode->val); 
+        }
+        return rightView;  
+    }
+};
