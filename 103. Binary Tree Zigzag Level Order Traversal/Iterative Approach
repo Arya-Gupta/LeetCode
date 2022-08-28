@@ -1,0 +1,30 @@
+// Time Complexity - Since we are traversing through all the nodes, time complexity is O(N).
+// Space Complexity - Storing all the nodes in a queue takes O(N) space.
+// Explanation - See this problem first: https://github.com/Arya-Gupta/LeetCode/tree/main/102.%20Binary%20Tree%20Level%20Order%20Traversal
+We maintain a levelNo for each level. If levelNo is positive, we reverse the vector of nodes before inserting it.
+
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        if(!root) return {};
+        vector<vector<int>> zigzagTraversal;
+        queue<TreeNode*> Q;
+        Q.push(root);
+        int levelNo = 0;
+        
+        while(!Q.empty()){
+            int sz = Q.size();
+            vector<int> level;
+            for(int i = 0; i < sz; i++){
+                TreeNode* currNode = Q.front();
+                Q.pop();
+                level.push_back(currNode->val);
+                if(currNode->left) Q.push(currNode->left);
+                if(currNode->right) Q.push(currNode->right);
+            }
+            if(++levelNo % 2 == 0) reverse(level.begin(), level.end());
+            zigzagTraversal.push_back(level);
+        }
+        return zigzagTraversal;
+    }
+};
