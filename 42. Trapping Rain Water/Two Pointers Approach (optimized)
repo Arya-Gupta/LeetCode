@@ -1,0 +1,40 @@
+// Time Complexity - Since we are visiting each node in the vector, time taken is O(N).
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - Water cannot be stored in the edges as it will flow over. 
+At each index, the maximum amount of water that can be trapped is equal to the minimum value between the maximum elevation at the left and the maximum elevation at the right. 
+Since the elevation itself takes up some space, we subtract the height of the elevation from this result to find the actual amount of water trapped. 
+At any instance, maxLeft maintains the maximum height to the left, while maxRight maintains the maximum height to the right.
+We move our left and right pointers, calculating the water stored at each position on the elevation map.
+
+This approach follows the same idea as the previous approach: https://github.com/Arya-Gupta/LeetCode/blob/main/42.%20Trapping%20Rain%20Water/Prefix%20Suffix%20Array%20approach
+It is a bit different, since we aren't using prefix/suffix arrays to store the maximum value to the left/right of each position.
+The idea remains the same - find the lesser height from the maximum left height (maxLeft) and maximum right height (maxRight) to the current position, and subtract from it the value of the current elevation to obtain how much water is trapped.
+
+The question arises - while using maxLeft to calculate the water stored, how do we know that there necessarily exists a value to the right which is greater?
+We know this from the condition - if(height[left] <= height[right]).
+The reason why the left pointer has been moved at all is because there was SOME elevation to its right which was GREATER.
+Thus we can always be sure that maxLeft < maxRight.
+If there was a value to the left of the current elevation which was greater, we would have been moving the right pointer and not the left.
+
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n = height.size();
+        int maxLeft = 0, maxRight = 0, left = 0, right = n - 1, result = 0;
+        
+        while(left <= right){       
+            if(height[left] < height[right]){
+                if(height[left] > maxLeft) maxLeft = height[left]; // Update maxLeft
+                else result += maxLeft - height[left]; // We subtract the height of the elevation itself
+                left++; // Left pointer moves forward
+            }
+            
+            else{
+                if(height[right] > maxRight) maxRight = height[right]; // Update maxRight
+                else result += maxRight - height[right]; // We subtract the height of the elevation itself
+                right--; // Right pointer moves forward
+            }
+        }
+        return result;
+    }
+};
