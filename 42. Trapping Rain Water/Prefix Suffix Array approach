@@ -1,6 +1,9 @@
 // Time Complexity - Creation of the prefix and suffix arrays take O(N) each, while the loop to calculate total rainwater trapped takes O(N) itself. Thus the time complexity for this problem is O(N).
 // Space Complexity - The prefix and suffix arrays take O(N) space complexity each. Thus the space complexity for this problem is O(N).
-// Explanation - Water cannot be stored in the edges as it will flow over. At each index, the maximum amount of water that can be trapped is equal to the minimum value between the maximum elevation at the left and the maximum elevation at the right. Since the elevation itself takes up some space, we subtract the height of the elevation from this result to find the actual amount of water trapped. Instead of finding the maximum elevation at the left/right for each index individually using loops, we maintain a prefix and suffix array to reduce time complexity.  
+// Explanation - Water cannot be stored in the edges as it will flow over. 
+At each index, the maximum amount of water that can be trapped is equal to the minimum value between the maximum elevation at the left and the maximum elevation at the right. 
+Since the elevation itself takes up some space, we subtract the height of the elevation from this result to find the actual amount of water trapped. 
+Instead of finding the maximum elevation at the left/right for each index individually using loops, we maintain a prefix and suffix array to reduce time complexity.  
 
 class Solution {
 public:
