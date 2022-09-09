@@ -1,4 +1,4 @@
-// Time Complexity - Time taken to search for the node is O(H) => O(logN base 2) in BST.
+// Time Complexity - Time taken to search for any node in BST is O(H) => O(logN base 2) in BST.
 // Space Complexity - Since we do not use any extra space, space complexity is O(1).
 // Explanation - We search the binary tree for the target node. If the node is found, we call the helper function on it to delete the node and keep the tree balanced.
 The helper function returns back the address of the new node that will replace the target node. We connect the parent of the target node to this node.
