@@ -1,0 +1,60 @@
+// Time Complexity - Time taken to search for the node is O(H) => O(logN base 2) in BST.
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - We search the binary tree for the target node. If the node is found, we call the helper function on it to delete the node and keep the tree balanced.
+The helper function returns back the address of the new node that will replace the target node. We connect the parent of the target node to this node.
+
+The helper function, when called on a particular node, deletes that node, and balances all the child nodes accordingly.
+
+If a node being deleted only has a left child, the helper function replaces it with its left child.
+if a node being deleted only has a right child, the helper function replaces it with its right child.
+
+If a node being deleted has both left and right child, the helper function replaces it with its left child. 
+Then it attaches the right subtree to the right of the greatest value in the left subtree to balance the nodes.
+An alternative would have been to replace the node to be deleted with the right child, and attach the left subtree to the smallest value present in the right subtree.
+
+class Solution {
+public:
+    TreeNode* findLastRight(TreeNode* root){
+        while(root->right) root = root->right;
+        return root;
+    }
+    
+    TreeNode* helper(TreeNode* root){
+        if(!root->left) return root->right;
+        if(!root->right) return root->left;
+        
+        TreeNode* rightChild = root->right; // Root of the right subtree of the node to be deleted
+        TreeNode* lastRight = findLastRight(root->left); // Find the largest node in the left subtree
+        lastRight->right = rightChild; // Attaching the right subtree to the right of the largest value in the left subtree
+        
+        return root->left; // Replacing the node to be deleted with its left child
+    }
+    
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(!root) return NULL; 
+        if(root->val == key) return helper(root);
+        TreeNode* dummy = root;
+        
+        while(root){
+            if(root->val > key){
+                if(root->left && root->left->val == key){
+                    root->left = helper(root->left);
+                    break;
+                }
+                else{
+                    root = root->left;
+                }
+            }
+            else{
+                if(root->right && root->right->val == key){
+                    root->right = helper(root->right);
+                    break;
+                }
+                else{
+                    root = root->right;
+                }
+            }
+        }
+        return dummy;
+    }
+};
