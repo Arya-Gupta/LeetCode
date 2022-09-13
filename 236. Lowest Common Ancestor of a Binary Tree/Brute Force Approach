@@ -1,0 +1,31 @@
+// Time Complexity - Since we visit all the nodes, time taken is O(N).
+// Space Complexity - Since we store all the nodes in vectors, space taken is O(N).
+// Explanation - We use two vectors to store the path to both the nodes.
+We find the last common node in these two paths excluding the given nodes themselves. This node is the LCA.
+
+class Solution {
+public:
+    bool getPath(TreeNode* root, TreeNode* target, vector<TreeNode*> &path){
+        if(!root) return false;
+        path.push_back(root);
+        if(root == target) return true;
+        else if(getPath(root->left, target, path) || getPath(root->right, target, path)) return true;
+        path.pop_back();
+        return false;
+    }
+    
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        TreeNode* lca = NULL;
+        vector<TreeNode*> path1, path2;
+        getPath(root, p, path1);
+        getPath(root, q, path2);
+        
+        int n = min(path1.size(), path2.size());
+        for(int i = 0; i < n; i++){
+            if(path1[i] == path2[i]) lca = path1[i];
+        }
+        
+        return lca;
+    }
+};
+
