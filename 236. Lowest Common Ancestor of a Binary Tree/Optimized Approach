@@ -1,0 +1,22 @@
+// Time Complexity - Since we iterate through all the nodes, time taken is O(N).
+// Space Complexity - Since we are recursively traversing through all the nodes, space taken by the call stack is O(H) => O(N) in case of skewed tree.
+// Explanation - We perform postorder traversal of the BT.
+For each node, we return the address of the node if it is NULL or one of the target nodes itself.
+If not, we check for its left and right value. (we are returned a value other than NULL if the subtree contains either of the target nodes)
+If both left and right return a value, our current node is the LCA. (it's left and right subtrees contain the target nodes)
+If either left or right has any value other than NULL, we return that value.
+Else we return NULL.
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(!root || root == p || root == q) return root;
+        
+        TreeNode* left = lowestCommonAncestor(root->left, p, q);
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
+        
+        if(left && right) return root; // root is the LCA
+        else if(left) return left; 
+        else return right;
+    }
+};
