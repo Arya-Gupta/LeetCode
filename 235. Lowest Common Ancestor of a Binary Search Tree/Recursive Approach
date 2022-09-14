@@ -1,0 +1,13 @@
+// Time Complexity - Since the maximum nodes we visit are equal to the height of a tree, time taken is O(H) = O(logN base 2) in BST.
+// Space Complexity - Since the nodes are stored in the call stack, space taken is O(H).
+// Explanation - Same explanation: https://github.com/Arya-Gupta/LeetCode/blob/main/235.%20Lowest%20Common%20Ancestor%20of%20a%20Binary%20Search%20Tree/Iterative%20Approach
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(!root) return NULL;
+        if(p->val > root->val && q->val > root->val) return lowestCommonAncestor(root->right, p, q);
+        if(p->val < root->val && q->val < root->val) return lowestCommonAncestor(root->left, p, q);
+        return root;
+    }
+};
