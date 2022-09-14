@@ -2,7 +2,7 @@
 // Space Complexity - Since we do not use any extra space, space taken is O(1).
 // Explanation - If the target nodes are both greater than the root node, we travel right.
 If they are both smaller than the root node, we travel left.
-If such a case arises that BOTH the target nodes aren't simultaneously greater/smaller than the current node - we have arrived at the LCA.
+If such a case arises that BOTH the target nodes aren't simultaneously greater/smaller than the current node - we have arrived at the LCA. (will work even if p/q is the LCA)
 
 class Solution {
 public:
