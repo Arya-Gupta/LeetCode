@@ -1,0 +1,18 @@
+// Time Complexity - Since the maximum nodes we visit are equal to the height of a tree, time taken is O(H) = O(logN base 2) in BST.
+// Space Complexity - Since we do not use any extra space, space taken is O(1).
+// Explanation - If the target nodes are both greater than the root node, we travel right.
+If they are both smaller than the root node, we travel left.
+If such a case arises that BOTH the target nodes aren't simultaneously greater/smaller than the current node - we have arrived at the LCA.
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(!root) return NULL;
+        while(root){
+            if(p->val > root->val && q->val > root->val) root = root->right;
+            else if(p->val < root->val && q->val < root->val) root = root->left;
+            else break;
+        }
+        return root;
+    }
+};
