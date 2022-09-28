@@ -1,0 +1,36 @@
+// Time Complexity - Since we are using n integers to create min heap of size k, time taken is O(Nlogk).
+// Space Complexity - Since we are using a heap of k elements, space taken is O(k).
+// Explanation - This is a similar approach to: https://github.com/Arya-Gupta/450DSA/tree/main/Heap/Merge%20k%20Sorted%20Arrays
+We have k different LL, and we input the first element of each LL into the min heap which give us the lowest value node out of these.
+We run a while loop until our heap is fully empty (i.e all the elements have been sorted and a new LL has been created).
+For every iteration, we add the top element of the heap to our final LL, and pop it from the heap.
+After popping an element, we store the next element of its LL in the min heap and continue the process of finding the next element in our final LL.
+
+class Solution {
+public:
+    typedef pair<int, ListNode*> pin;
+    ListNode* mergeKLists(vector<ListNode*>& lists){
+        int k = lists.size();
+        priority_queue<pin, vector<pin>, greater<pin>> minh;
+        ListNode *head = NULL, *temp = NULL;
+        // Pushing the first value-node pair from each LL into min heap
+        for(int i = 0; i < k; i++){
+            if(lists[i]) minh.push({lists[i]->val, lists[i]}); // Do not enter NULL into heap
+        }
+        
+        while(!minh.empty()){
+            ListNode* currNode = minh.top().second;
+            if(!head){
+                head = temp = currNode;
+            }
+            else{
+                temp->next = currNode;
+                temp = temp->next;
+            }
+            minh.pop();
+             // Enter the next element of the current LL into the heap unless it is the last element of that LL
+            if(currNode->next) minh.push({currNode->next->val, currNode->next});
+        }
+        return head;
+    }
+};
