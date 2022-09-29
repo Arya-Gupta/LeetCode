@@ -1,0 +1,22 @@
+// Time Complexity - Since we are iterating through each string in the array, time taken is O(N * k) where k = size of a string.
+// Space Complexity - Since we are storing the domains in a map, space taken is O(N).
+// Explanation - We iterate through the given array, storing the frequency of each domain in an unordered_map.
+
+class Solution {
+public:
+    void calcFrequency(string s, unordered_map<string, int> &mp){
+        int n = s.length();
+        int freq = stoi(s.substr(0, s.find(" ")));
+        for(int i = n - 1; i >= 0; i--){
+            if(s[i] == '.' || s[i] == ' ') mp[s.substr(i + 1)] += freq;
+        }
+    }
+    
+    vector<string> subdomainVisits(vector<string>& cpdomains){
+        unordered_map<string, int> mp;
+        vector<string> visits;
+        for(auto i : cpdomains) calcFrequency(i, mp);
+        for(auto i : mp) visits.push_back(to_string(i.second) + " " + i.first);
+        return visits;
+    }
+};
