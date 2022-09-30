@@ -1,0 +1,27 @@
+// Time Complexity - Time taken to visit each node is O(N).
+// Space Complexity - Since we store the nodes in a queue, space taken is O(N).
+// Explanation - We perform level order traversal, and calculate the sum of each individual level. The sum resets when we visit the next level.
+After the completion of the level order traversal, sum will hold the sum of the nodes of the deepest level.
+
+class Solution {
+public:    
+    int deepestLeavesSum(TreeNode* root){
+        int sum = 0;
+        queue<TreeNode*> Q;
+        Q.push(root); 
+        
+        while(!Q.empty()){
+            int sz = Q.size(); 
+            sum = 0;
+            
+            for(int i = 0; i < sz; i++){
+                TreeNode* currNode = Q.front();
+                Q.pop(); 
+                if(currNode->left) Q.push(currNode->left); 
+                if(currNode->right) Q.push(currNode->right); 
+                sum += currNode->val;
+            }
+        }
+        return sum;  
+    }
+};
