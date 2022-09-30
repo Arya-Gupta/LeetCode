@@ -1,0 +1,25 @@
+// Time Complexity - Traversing over all the nodes takes O(N) time.
+// Space Complexity - Space taken by the call stack is O(H) where H = height of the tree => O(N) in case of skewed tree
+// Explanation - We calculate the height of the binary tree. If we find any node with that height (obviously a leaf node), we add its value to sum.
+
+class Solution {
+public:
+    int heightOfTree(TreeNode* root){
+        if(!root) return 0;
+        return max(heightOfTree(root->left), heightOfTree(root->right)) + 1;
+    }
+    
+    void calcSum(TreeNode* root, int height, int level, int &sum){
+        if(!root) return;
+        calcSum(root->left, height, level + 1, sum);
+        if(level == height) sum += root->val;
+        calcSum(root->right, height, level + 1, sum);
+    }
+    
+    int deepestLeavesSum(TreeNode* root){
+        int height, sum = 0;
+        height = heightOfTree(root);
+        calcSum(root, height, 1, sum);
+        return sum;
+    }
+};
