@@ -1,0 +1,35 @@
+// Time Complexity - Inserting N elements to create max heap of size N, takes O(NlogN) time.
+// Space Complexity - Creating another string with all the elements takes O(N) space.
+// Explanation - We always try to put the character with the highest frequency first in our resultant string.
+Using a max heap, we order all the characters in our original string, by their frequencies.
+One by one, we pick the character with the highest frequency, and add it to our resultant string.
+Since we have added this character (and adjacent characters cannot be the same), we decrease its frequency and temporarily move it out of the max heap into prev (so that it isn't picked as the next element - even after decreasing frequency by 1 it still might have the maximum frequency in the heap).
+After we find the next element in our resultant string, the character that had been moved out to prev is added back into the max heap, provided it still has a frequency greater than 0.
+
+class Solution {
+public:
+    typedef pair<int, char> pic;
+    string reorganizeString(string s){
+        priority_queue<pic> maxh;
+        vector<int> charFreq(26, 0);
+        for(auto ch : s) charFreq[ch - 'a']++; 
+        for(int i = 0; i < 26; i++){
+            if(charFreq[i]) maxh.push({charFreq[i], char(i + 'a')});
+        }
+        
+        string ans = "";
+        pic prev = {0, ' '}; // Dummy data
+        
+        while(!maxh.empty()){
+            pic curr = maxh.top();
+            maxh.pop();
+            ans += curr.second;
+            if(prev.first) maxh.push(prev);
+            curr.first--;
+            prev = curr;
+        }
+        
+        if(ans.length() != s.length()) return "";
+        return ans;
+    }
+};
