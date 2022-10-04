@@ -1,0 +1,26 @@
+// Time Complexity - The outer loop runs 32 times (32 bit integer) and the inner loop runs N times for each bit. Thus time taken is O(N).
+// Space Complexity - Since we do not use any extra space, space taken is O(1).
+// Explanation - Using the __builtin_popcount function on the XOR of every pair in the array would have taken O(N^2) time, assuming __builtin_popcount takes O(1) time. 
+This would have resulted in a TLE.
+
+It is given that we are to consider 32 bit integers. 
+For every position from the 0th bit to the 31th bit, we calculate the TOTAL number of ones and zeroes we have, considering all the numbers in the array.
+If for a particular position we have found x 1s and y 0s, the total number of different bits at that position is given by x * y.
+Instead of actually creating pairs of all the numbers in the array and trying to find the hamming distance, we calculate the hamming distance for every single position individually.
+Adding up x * y for each of the 32 bit positions will give us the total hamming distance.
+
+class Solution {
+public:
+    int totalHammingDistance(vector<int>& nums) {
+        int total = 0;
+        for(int i = 0; i < 32; i++){
+            int one = 0, zero = 0;
+            for(auto num : nums){
+                if(num & (1 << i)) one++;
+                else zero++;
+            }
+            total += (one * zero);
+        }
+        return total;
+    }
+};
