@@ -1,6 +1,6 @@
 // Time Complexity - The outer loop runs 32 times (32 bit integer) and the inner loop runs N times for each bit. Thus time taken is O(N).
 // Space Complexity - Since we do not use any extra space, space taken is O(1).
-// Explanation - Using the __builtin_popcount function on the XOR of every pair in the array would have taken O(N^2) time, assuming __builtin_popcount takes O(1) time. 
+// Explanation - Using the __builtin_popcount function on the XOR of every pair in the array would have taken O(N^2) time, since __builtin_popcount takes O(k) time => O(N) in worst case. 
 This would have resulted in a TLE.
 
 It is given that we are to consider 32 bit integers. 
