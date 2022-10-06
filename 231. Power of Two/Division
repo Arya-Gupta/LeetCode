@@ -1,0 +1,19 @@
+// Time Complexity - Since we keep dividing the number by 2, time taken is O(logN base 2).
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - We keep dividing the number by 2, and at every stage we check if it is a multiple of 2.
+0 is not a power of 2.
+1 is a power of 2.
+We set the while loop to check if n is originaly 1, or has reached 1 after being repeatedly divided by 2.
+Example: 8 / 2 = 4, 4 / 2 = 2, 2 / 2 = 1
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n){
+        if(!n) return false;
+        while(n != 1){
+            if(n % 2) return false;
+            n /= 2;
+        }
+        return true;
+    }
+};
