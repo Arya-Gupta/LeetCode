@@ -1,0 +1,10 @@
+// Time Complexity - Since finding the bitwise AND of two numbers takes constant time, time complexity is O(1).
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - If a number n is a power of 2, n - 1 will have all its bits flipped. ( 8 -> 1000, 7 -> 0111). Hence their bitwise AND will always give 0.
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n){
+        return n > 0 && !(n & (n - 1));
+    }
+};
