@@ -1,0 +1,30 @@
+// Time Complexity - Single pass through LL takes O(N) time.
+// Since we do not use any extra space, space complexity is O(1).
+// Explanation - We iterate through the original LL and change the links when we encounter a 0.
+We use two pointers:
+temp1 - iterates through LL
+temp2 - used to change links to create new LL
+
+class Solution {
+public:
+    ListNode* mergeNodes(ListNode* head){
+        head = head->next; // New head
+        ListNode *temp1 = head, *temp2 = head;
+        int sum = 0;
+        
+        while(temp1){ 
+            if(temp1->val){
+                sum += temp1->val;
+                temp1 = temp1->next;
+            }
+            else{
+                temp2->val = sum;
+                sum = 0;
+                temp2->next = temp1->next;
+                temp1 = temp1->next;
+                temp2 = temp1;
+            }
+        }
+        return head;
+    }
+};
