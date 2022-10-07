@@ -1,0 +1,23 @@
+// Time Complexity - Since we are using n integers to create max heap of size k, time taken is O(Nlogk).
+// Space Complexity - Creating a heap of k elements takes O(k) space.
+// Explanation - We create a max heap to store value-index pairs.
+We initially put the first window of k size into the heap, and store its corresponding maximum value in the maxWindow array.
+Then we slide the window, inserting and removing values from the max heap at every instance to find our maximum element.
+
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k){
+        int n = nums.size();
+        vector<int> maxWindow;
+        priority_queue<pair<int,int>> maxh;
+        for(int i = 0; i < k; i++) maxh.push({nums[i], i}); // Insert first window into heap
+        maxWindow.push_back(maxh.top().first); // Inserting first maximum element into vector
+        
+        for(int i = k; i < n; i++){
+            maxh.push({nums[i], i}); 
+            while(maxh.top().second <= i - k) maxh.pop(); 
+            maxWindow.push_back(maxh.top().first); 
+        }
+        return maxWindow;
+    }
+};
