@@ -6,26 +6,23 @@ When we encounter a 0, we create a new node in our new LL based upon the value o
 class Solution {
 public:
     ListNode* mergeNodes(ListNode* head){
-        ListNode *temp1 = head->next, *newHead = NULL, *temp2 = NULL;
-        long long sum = 0;
-        while(temp1){
-            if(!temp1->val){
-                ListNode* newNode = new ListNode(sum);
-                sum = 0;
-                if(!newHead){
-                    newHead = newNode;
-                    temp2 = newHead;
-                }
-                else{
-                    temp2->next = newNode;
-                    temp2 = temp2->next;
-                }
+        head = head->next; // New head
+        ListNode *temp1 = head, *temp2 = head;
+        int sum = 0;
+        
+        while(temp1){ 
+            if(temp1->val){
+                sum += temp1->val;
+                temp1 = temp1->next;
             }
             else{
-                sum += temp1->val;
+                temp2->val = sum;
+                sum = 0;
+                temp2->next = temp1->next;
+                temp1 = temp1->next;
+                temp2 = temp1;
             }
-            temp1 = temp1->next;
         }
-        return newHead;
+        return head;
     }
 };
