@@ -1,0 +1,31 @@
+// Time Complexity - Iterating over the LL takes O(N) time.
+// Space Complexity - Since we are creating a new LL, space taken is O(N).
+// Explanation - We iterate through all the nodes and create a new LL.
+When we encounter a 0, we create a new node in our new LL based upon the value of sum, and sum is changed to 0.
+
+class Solution {
+public:
+    ListNode* mergeNodes(ListNode* head){
+        ListNode *temp1 = head->next, *newHead = NULL, *temp2 = NULL;
+        long long sum = 0;
+        while(temp1){
+            if(!temp1->val){
+                ListNode* newNode = new ListNode(sum);
+                sum = 0;
+                if(!newHead){
+                    newHead = newNode;
+                    temp2 = newHead;
+                }
+                else{
+                    temp2->next = newNode;
+                    temp2 = temp2->next;
+                }
+            }
+            else{
+                sum += temp1->val;
+            }
+            temp1 = temp1->next;
+        }
+        return newHead;
+    }
+};
