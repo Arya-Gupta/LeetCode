@@ -1,0 +1,49 @@
+// Time Complexity - Time taken to cover row * column elements is O(row * column) = O(N).
+// Space Complexity - Since we do not use any extra space, space taken is O(1).
+// Explanation - We fix four pointers - left, right, top, bottom which we use to traverse the matrix.
+After moving in one direction, we change our direction to traverse cyclically.
+On traversing the top row, we increment top. On traversing the right row, we decrement right.
+On traversing the bottom row, we decrement bottom. On traversing the left row, we increment left.
+direction 1 - left to right
+direction 2 - top to bottom
+direction 3 - right to left
+direction 4 - bottom to top
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix){
+        int left = 0, right = matrix[0].size() - 1, top = 0, bottom = matrix.size() - 1, direction = 1;
+        vector<int> order;
+        
+        while(left <= right && top <= bottom)
+        {
+            switch(direction){
+                case 1:
+                    for(int i = left; i <= right; i++) order.push_back(matrix[top][i]);
+                    direction = 2;
+                    top++;
+                    break;
+                    
+                case 2:
+                    for(int i = top; i <= bottom; i++) order.push_back(matrix[i][right]);
+                    direction = 3;
+                    right--;
+                    break;
+                    
+                case 3:
+                    for(int i = right;i >= left; i--) order.push_back(matrix[bottom][i]);
+                    direction = 4;
+                    bottom--;
+                    break;
+                    
+                case 4:
+                    for(int i = bottom; i >= top; i--) order.push_back(matrix[i][left]);
+                    direction = 1;
+                    left++;
+                    break;
+            }
+        }
+        return order;
+    }
+};
+
