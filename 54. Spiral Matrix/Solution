@@ -12,10 +12,10 @@ direction 4 - bottom to top
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix){
-        int left = 0, right = matrix[0].size() - 1, top = 0, bottom = matrix.size() - 1, direction = 1;
+        int row = matrix.size(), col = matrix[0].size(), left = 0, right = matrix[0].size() - 1, top = 0, bottom = matrix.size() - 1, direction = 1;
         vector<int> order;
         
-        while(left <= right && top <= bottom)
+        while(order.size() < row * col)
         {
             switch(direction){
                 case 1:
@@ -46,4 +46,3 @@ public:
         return order;
     }
 };
-
