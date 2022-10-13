@@ -1,0 +1,27 @@
+// Time Complexity - Iterating over the given string takes O(N) time.
+// Space Complexity - Since we do not use any extra space, space taken is O(1).
+// Explanation - The robot staying in a circle implies that it eventually comes to the origin.
+After executing the current set of instructions, we can know if the robot stays in the circle if it satisfies either of the following:
+i) The robot comes back to the origin
+ii) The robot does not face north (in this case, the robot will EVENTUALLY come to the origin)
+
+class Solution {
+public:
+    bool isRobotBounded(string instructions) {
+        int x = 0, y = 0, n = instructions.length();
+        char direction = 'N';
+        for(auto instruction : instructions){
+            if(instruction == 'G'){
+                x += (direction == 'E') ? 1 : (direction == 'W') ? -1 : 0;
+                y += (direction == 'N') ? 1 : (direction == 'S') ? -1 : 0;
+            }
+            else{
+                if(instruction == 'L') direction = (direction == 'N') ? 'W' : (direction == 'S') ? 'E' : (direction == 'E')? 'N' : 'S';
+                else direction = (direction == 'N') ? 'E' : (direction == 'S') ? 'W' : (direction == 'E') ? 'S' : 'N';
+            }
+        }
+        
+        if(!x && !y || direction != 'N') return true;
+        return false;
+    }
+};
