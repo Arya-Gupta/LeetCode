@@ -1,0 +1,17 @@
+// Time Complexity - Sorting the array takes O(NlogN) time.
+// Space Complexity - Since we do not use any extra space, space complexity is O(1).
+// Explanation - We sort the array and check if the array contains values from 1 to N using a variable val.
+The final value of val will be the value which couldn't be found.
+If the array is of a form like [1, 2, 3] then val stops at n + 1 which is 4.
+
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums){
+        int n = nums.size(), val = 1;
+        sort(nums.begin(), nums.end());
+        for(int i = 0; i < n; i++){
+            if(nums[i] == val) val++;
+        }
+        return val;
+    }
+};
