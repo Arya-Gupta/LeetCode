@@ -1,0 +1,18 @@
+// Time Complexity - Iterating over all the elements takes O(N) time.
+// Space Complexity - Storing all the elements in a hashmap takes O(N) space.
+// Explanation - We store all the elements in a hashmap and find which element is missing from 1 to N. 
+The missing element is the first missing positive. 
+If all elements are present, given array is of the format [1, 2, 3] => first missing positive is n + 1 = 4.
+
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums){
+        int n = nums.size();
+        unordered_map<int, int> mp;
+        for(auto i : nums) mp[i]++;
+        for(int i = 1; i <= n; i++){
+            if(mp.find(i) == mp.end()) return i;
+        }
+        return n + 1;
+    }
+};
