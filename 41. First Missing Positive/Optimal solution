@@ -1,0 +1,27 @@
+// Time Complexity - Iterating over the array takes O(N) time.
+// Space Complexity - Since we do not use any extra space, space taken is O(1).
+// Explanation - First we iterate through the array and if there is any element outside the range of 1 to N, we change it to 1.
+While doing this, we keep track if any element of the array was originally 1 - so if 1 was missing then we return it as the answer.
+To mark presence of an element x, we change the sign of value at index x - 1 to negative.
+We loop through the array again and search for an index i for which nums[i] is positive. 
+The first missing positive number is i + 1. 
+If there is no such index, the array is of the form 1, 2, 3 and the first missing positive number is n + 1 = 4.
+
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums){
+        int n = nums.size(), one = 0;
+        for(int i = 0; i < n; i++){
+            if(nums[i] == 1) one = true; // Find if there are any 1s in the given array
+            else if(nums[i] < 1 || nums[i] > n) nums[i] = 1; // Convert numbers outside range 1-N to 1
+        }  
+        if(!one) return 1; // 1 is the first missing positive
+        for(int i = 0; i < n; i++) nums[abs(nums[i]) - 1] = -abs(nums[abs(nums[i]) - 1]); // Mapping elements with index
+        
+        // Finding the first missing positive
+        for(int i = 0; i < n; i++){
+            if(nums[i] > 0) return i + 1;
+        }
+        return n + 1;
+    }
+};
