@@ -1,0 +1,29 @@
+// Time Complexity - Since we insert N elements into a heap of size K, time taken is O(NlogK).
+// Space Complexity - Using a heap of size K takes O(K) space => O(N) in worst case.
+// Explanation - We insert the points one by one into max heap in distance-index pairs.
+Distance is found using the given formula for euclidean distance.
+
+class Solution {
+public:
+    int distance(int x, int y){
+        return pow(x, 2) + pow(y, 2);  
+    }
+    
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k){
+        int n = points.size();
+        vector<vector<int>> kClosestPoints;
+        priority_queue<pair<int, int>> maxh;
+        
+        for(int i = 0; i < n; i++){
+            maxh.push({distance(points[i][0], points[i][1]), i});
+            if(maxh.size() > k) maxh.pop();
+        }
+        
+        while(!maxh.empty()){
+            kClosestPoints.push_back({points[maxh.top().second][0], points[maxh.top().second][1]});
+            maxh.pop();
+        }
+        
+        return kClosestPoints;
+    }
+};
