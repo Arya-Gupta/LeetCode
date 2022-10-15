@@ -1,0 +1,33 @@
+// Time Complexity - Iterating through all the nodes in the tree takes O(N) time.
+// Space Complexity - Since we are storing the paths in a vector, space taken is O(H) where H is height of the tree.
+// Explanation - We perform preorder traversal. 
+If the node is not a leaf node, we add an arrow to the present string. If it is a leaf node, simply push the present string into the vector and set it to blank.
+
+class Solution {
+public:
+    bool isLeafNode(TreeNode* root){
+        return !root->left && !root->right;
+    }
+    
+    void calcPaths(TreeNode* root, string path, vector<string> &paths){
+        if(!root) return;
+        path += to_string(root->val);
+        
+        if(isLeafNode(root)){
+            paths.push_back(path);
+            path = "";
+        }
+        else{
+            path += "->";
+        }
+
+        calcPaths(root->left, path, paths);
+        calcPaths(root->right, path, paths);
+    }
+    
+    vector<string> binaryTreePaths(TreeNode* root){
+        vector<string> paths;
+        calcPaths(root, "", paths);
+        return paths;
+    }
+};
