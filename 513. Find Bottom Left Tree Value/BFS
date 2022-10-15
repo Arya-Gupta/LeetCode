@@ -1,0 +1,23 @@
+// Time Complexity - Traversing the binary tree takes O(N) time.
+// Space Complexity - Since we are storing elements in a queue, space taken is O(N).
+// Explanation - In any level, the leftmost value is the first element while traversing that level. (assuming we perform traversal from the left)
+
+class Solution {
+public:
+    int findBottomLeftValue(TreeNode* root) {
+        int target;
+        queue<TreeNode*> Q;
+        Q.push(root);
+        while(!Q.empty()){
+            int sz = Q.size();
+            target = Q.front()->val;
+            for(int i = 0; i < sz; i++){
+                TreeNode* currNode = Q.front();
+                Q.pop();
+                if(currNode->left) Q.push(currNode->left);
+                if(currNode->right) Q.push(currNode->right);
+            }
+        }
+        return target;
+    }
+};
