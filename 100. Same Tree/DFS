@@ -1,0 +1,11 @@
+// Time Complexity - Since we are traversing all the nodes, time taken is O(N).
+// Space Complexity - Since we are storing the nodes in the call stack, space taken is O(N).
+// Explanation - We traverse both the trees simultaneously using preorder traversal, and check if both the nodes are equal or simultaneously NULL.
+
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(!p || !q) return (p == q);
+        return (p->val == q->val) && isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+    }
+};
