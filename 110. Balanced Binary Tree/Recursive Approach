@@ -6,7 +6,7 @@ We pass our root node to the function dfsHeight. If we get back a valid height, 
 For each node, we find out its left height and right height. 
 In case either of those are -1 (which indicates that there it has an unbalanced subtree), we immediately return -1 to show that the binary tree is not balanced.
 If the difference between both the heights is more than 1, the binary tree is unbalanced and thus we return -1. 
-Else if it is less than 1, we know that the subtree is balanced, and thus we return the height of the subtree. 
+Else if it is less than or equals to 1, we know that the subtree is balanced, and thus we return the height of the subtree. 
 
 class Solution {
 public:
