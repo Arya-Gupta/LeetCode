@@ -1,0 +1,17 @@
+// Time Complexity - Since we are traversing all the nodes, time taken is O(N).
+// Space Complexity - Space taken by the call stack is O(H).
+// Explanation - This problem is similar to: https://github.com/Arya-Gupta/LeetCode/tree/main/100.%20Same%20Tree
+We traverse both left and right subtrees of the root node simultaneously and check if the nodes are symmetric.
+
+class Solution {
+public:
+    bool checkSymmetric(TreeNode* p, TreeNode* q) {
+        if(!p || !q) return (p == q);
+        return (p->val == q->val) && checkSymmetric(p->left, q->right) && checkSymmetric(p->right, q->left);
+    }
+    
+    bool isSymmetric(TreeNode* root) {
+        if(!root) return true;
+        return checkSymmetric(root->left, root->right);
+    }
+};
