@@ -1,0 +1,10 @@
+// Time Complexity - A single check takes constant time.
+// Space Complexity - We do not use any extra space, so space taken is O(1).
+// Explanation - We check if root is equal to the sum of its left and right child.
+
+class Solution {
+public:
+    bool checkTree(TreeNode* root) {
+        return root->val == root->left->val + root->right->val;
+    }
+};
