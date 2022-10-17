@@ -1,0 +1,44 @@
+// Time Complexity - Time taken to visit all the nodes is O(N).
+// Space Complexity - Since we are using the morris traversal, space taken is O(1).
+// Explanation - As we do the inorder traversal of the BST (which is already in sorted order), we use a isTargetNode function to count upto the kth node.
+We use morris traversal instead of ordinary inorder traversal to reduce space complexity.
+
+class Solution {
+public:
+    TreeNode* inorderPredecessor(TreeNode* currNode){
+        TreeNode *temp = currNode->left;
+        while(temp->right && temp->right != currNode) temp = temp->right;
+        return temp;
+    }
+    
+    bool isTargetNode(int &count, int k){
+        if(++count == k) return true;
+        return false;
+    }
+    
+    int kthSmallest(TreeNode* root, int k){
+        int count = 0, target = 0;
+        TreeNode *currNode = root;
+        
+        while(currNode){
+            if(!currNode->left){
+                if(isTargetNode(count, k)) target = currNode->val;
+                currNode = currNode->right;
+            }
+            
+            else{
+                TreeNode* prevNode = inorderPredecessor(currNode);
+                if(!prevNode->right){
+                    prevNode->right = currNode; 
+                    currNode = currNode->left; 
+                }
+                else{
+                    prevNode->right = NULL; 
+                    if(isTargetNode(count, k)) target = currNode->val;
+                    currNode = currNode->right; 
+                }
+            }
+        }
+        return target;
+    }
+};
