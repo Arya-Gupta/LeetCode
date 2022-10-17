@@ -1,6 +1,7 @@
 // Time Complexity - Time taken to visit all the nodes is O(N).
 // Space Complexity - Since we are using the morris traversal, space taken is O(1).
-// Explanation - As we do the inorder traversal of the BST (which is already in sorted order), we use a isTargetNode function to count upto the kth node.
+// Explanation - Read: https://github.com/Arya-Gupta/LeetCode/blob/main/94.%20Binary%20Tree%20Inorder%20Traversal/Morris%20Traversal
+As we do the inorder traversal of the BST (which is already in sorted order), we use a isTargetNode function to count upto the kth node.
 We use morris traversal instead of ordinary inorder traversal to reduce space complexity.
 
 class Solution {
