@@ -1,0 +1,20 @@
+// Time Complexity - Sorting the nodes takes O(NlogN) time.
+// Space Complexity - Storing the nodes in a vector takes O(N) space.
+// Explanation - We store the inorder traversal of the BST in a vector, which will already be sorted in increasing order.
+The element at index k - 1 is the kth smallest element in the BST.
+
+class Solution {
+public:
+    void inorderTraversal(TreeNode* root, vector<int> &inorder){
+        if(!root) return;
+        inorderTraversal(root->left, inorder);
+        inorder.push_back(root->val);
+        inorderTraversal(root->right, inorder);
+    }
+    
+    int kthSmallest(TreeNode* root, int k) {
+        vector<int> inorder;
+        inorderTraversal(root, inorder);
+        return inorder[k - 1];
+    }
+};
