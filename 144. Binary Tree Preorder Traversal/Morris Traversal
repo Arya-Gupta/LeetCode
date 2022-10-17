@@ -1,0 +1,39 @@
+// Time Complexity - Time taken to traverse all the nodes is O(N).
+// Space Complexity - Since we are not using recursion stack space, space taken is O(1).
+// Explanation - Read: https://github.com/Arya-Gupta/LeetCode/blob/main/94.%20Binary%20Tree%20Inorder%20Traversal/Morris%20Traversal
+
+class Solution {
+public:
+    TreeNode* inorderPredecessor(TreeNode* currNode){
+        TreeNode *temp = currNode->left;
+        while(temp->right && temp->right != currNode) temp = temp->right;
+        return temp;
+    }
+    
+    vector<int> preorderTraversal(TreeNode* root){
+        vector<int> ans;
+        TreeNode *currNode = root;
+        
+        while(currNode){
+            if(!currNode->left){
+                ans.push_back(currNode->val);
+                currNode = currNode->right;
+            }
+            
+            else{
+                TreeNode* prevNode = inorderPredecessor(currNode);
+                if(!prevNode->right){
+                    prevNode->right = currNode; 
+                    ans.push_back(currNode->val); // This is the only line changed from morris traversal inorder (we print the root node after creating the thread)
+                    currNode = currNode->left; 
+                }
+                else{
+                    prevNode->right = NULL;
+                    currNode = currNode->right;
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
