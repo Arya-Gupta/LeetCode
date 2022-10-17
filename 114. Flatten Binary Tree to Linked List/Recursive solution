@@ -1,0 +1,18 @@
+// Time Complexity - Traversing over all the nodes takes O(N) time.
+// Space Complexity - Space taken to store the nodes is O(H) => O(N) in worst case.
+// Explanation - First we visit the right node, then the left node and then the root node (R->L->Root).
+During the recursive traversal, we point the right of each node to its prevNode, and its left node to NULL (as in the case of a LL). 
+Then we set the current node to be the prevNode.
+
+class Solution {
+public:
+    TreeNode* prevNode = NULL; 
+    void flatten(TreeNode* root) {
+        if(!root) return;
+        flatten(root->right);
+        flatten(root->left);
+        root->right = prevNode;
+        root->left = NULL;
+        prevNode = root;
+    }
+};
