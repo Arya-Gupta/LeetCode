@@ -1,4 +1,4 @@
-// Time Complexity - Sorting the nodes takes O(NlogN) time.
+// Time Complexity - Visiting all the nodes once takes O(N) time.
 // Space Complexity - Storing the nodes in a vector takes O(N) space.
 // Explanation - We store the inorder traversal of the BST in a vector, which will already be sorted in increasing order.
 The element at index k - 1 is the kth smallest element in the BST.
