@@ -1,0 +1,44 @@
+// Time Complexity - Time taken to traverse all the nodes is O(N).
+// Space Complexity - Since we are not using recursion stack space, space taken is O(1).
+// Explanation - Morris traversal is used to remove the extra stack space taken up due to recursion by using the concept of threaded binary tree.
+
+class Solution {
+public:
+    TreeNode* inorderPredecessor(TreeNode* currNode){
+        TreeNode *temp = currNode->left;
+        // temp->right should not take us back to currNode via a thread
+        while(temp->right && temp->right != currNode) temp = temp->right;
+        return temp;
+    }
+    
+    vector<int> inorderTraversal(TreeNode* root){
+        vector<int> ans;
+        TreeNode *currNode = root;
+        
+        while(currNode){
+            // If currNode does not have a left node
+            if(!currNode->left){
+                ans.push_back(currNode->val);
+                currNode = currNode->right;
+            }
+            
+            // If currNode has a left node
+            else{
+                TreeNode* prevNode = inorderPredecessor(currNode);
+                // If right child of inorder predecessor does not point to currNode (no thread)
+                if(!prevNode->right){
+                    prevNode->right = currNode; // Create the thread
+                    currNode = currNode->left; // Start the traversal
+                }
+                // If right child of inorder predecessor points to currNode (there is a thread)
+                else{
+                    prevNode->right = NULL; // Remove the thread
+                    ans.push_back(currNode->val);
+                    currNode = currNode->right; // Since there was a thread we have finished traversing left subtree
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
