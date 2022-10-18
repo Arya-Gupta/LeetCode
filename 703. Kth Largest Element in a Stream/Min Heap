@@ -1,6 +1,6 @@
 // Time Complexity - Storing N elements in a heap of size K takes O(NlogK) time.
 // Space Complexity - Storing the elements in a heap takes O(K) space.
-// Explanation - We use a heap to find the Kth largest element.
+// Explanation - We use a min heap to find the Kth largest element.
 
 class KthLargest {
 public:
