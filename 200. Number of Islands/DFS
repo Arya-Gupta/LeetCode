@@ -1,0 +1,37 @@
+// Time Complexity - Since we are visiting all the cells in the matrix, time taken is O(n * m).
+// Space Complexity - Recursive stack space taken is O(n * m).
+// Explanation - This problem is similar to: https://github.com/Arya-Gupta/LeetCode/tree/main/547.%20Number%20of%20Provinces
+Visiting 1 cell within an island will mean we will eventually visit the whole island. When we visit a cell, we mark it as 2.
+Water - 0, unvisited cells - 1, visited cells - 2.
+Thus we iterate through the entire matrix, checking for any unvisited cell. If we find an unvisited cell, we call the dfs function for that cell.
+The dfs function will visit all the adjacent cells to our current cell and eventually the entire island.
+Thus we increment the count of the number of islands whenever we find an unvisited cell.
+
+class Solution {
+public:
+    void dfs(vector<vector<char>> &grid, int i, int j){
+        if(i < 0 || j < 0 || i >= grid.size() || j >= grid[0].size()) return; // Checking boundary
+        if(grid[i][j] == '0' || grid[i][j] == '2') return; // Checking if cell is water or visited
+        
+        grid[i][j] = '2'; // Marking the cell visited
+        
+        // Visiting adjacent lands
+        dfs(grid, i + 1, j);
+        dfs(grid, i - 1, j);
+        dfs(grid, i, j + 1);
+        dfs(grid, i, j - 1);
+    }
+    
+    int numIslands(vector<vector<char>>& grid) {
+        int n = grid.size(), m = grid[0].size(), noOfIslands = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(grid[i][j] == '1'){
+                    noOfIslands++;
+                    dfs(grid, i, j);
+                }
+            }
+        }
+        return noOfIslands;
+    }
+};
