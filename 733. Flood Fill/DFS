@@ -1,0 +1,25 @@
+// Time Complexity - In the worst case, we have to visit all the cells so time taken is O(n * m).
+// Space Complexity - Recursive stack space taken is O(n * m).
+// Explanation - This problem is similar to: https://github.com/Arya-Gupta/LeetCode/tree/main/200.%20Number%20of%20Islands
+We can change nodes whose color is the same as the color of our starting pixel.
+We visit the starting pixel and change its color, and using dfs change the colors of any pixels adjacent to that pixel having same color, then any pixel adjacent to those pixels and so on.
+
+class Solution {
+public:
+    void dfs(vector<vector<int>> &image, int i, int j, int givenColor, int newColor){
+        if(i < 0 || j < 0 || i >= image.size() || j >= image[0].size()) return; // Checking boundary
+        if(image[i][j] != givenColor || image[i][j] == newColor) return; // Checking if pixel needs to be colored
+        
+        image[i][j] = newColor;
+        
+        dfs(image, i + 1, j, givenColor, newColor);
+        dfs(image, i - 1, j, givenColor, newColor);
+        dfs(image, i, j + 1, givenColor, newColor);
+        dfs(image, i, j - 1, givenColor, newColor);
+    }
+    
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        dfs(image, sr, sc, image[sr][sc], color);
+        return image;
+    }
+};
