@@ -1,0 +1,28 @@
+// Time Complexity - Iterating through all the cities or vertices takes O(N) time.
+// Space Complexity - Space taken by storing all the vertices in a visited array is O(N).
+// Explanation - We maintain a visited array to mark the cities (or vertices) which have been visited. 
+For any unvisited vertex, we perform a dfs. 
+A single dfs call on any one city of a province will result in all the cities to be marked visited.
+Hence we count how many times we call dfs to count the no of provinces.
+
+class Solution {
+public:
+    void dfs(vector<vector<int>> isConnected, vector<int> &vis, int v, int node){
+        vis[node] = 1;
+        for(int i = 0; i < v; i++){
+            if(isConnected[node][i] && !vis[i]) dfs(isConnected, vis, v, i);
+        }
+    }
+    
+    int findCircleNum(vector<vector<int>>& isConnected){
+        int v = isConnected.size(), noOfProvinces = 0;
+        vector<int> vis(v, 0);
+        for(int i = 0; i < v; i++){
+            if(!vis[i]){
+                noOfProvinces++;
+                dfs(isConnected, vis, v, i);
+            }
+        }
+        return noOfProvinces;   
+    }
+};
