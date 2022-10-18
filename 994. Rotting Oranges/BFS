@@ -1,0 +1,49 @@
+// Time Complexity - In the worst case, we have to visit all the cells so time taken is O(n * m).
+// Space Complexity - Storing the position of oranges in a queue takes O(n * m) space.
+// Explanation - At each instant, rotten will simultaneously rot all oranges adjacent to them, thus we perform BFS.
+Each iteration of the while loop indicates each second where new oranges will get rotten.
+When the LAST set of oranges have been rottened and pushed into the queue and they cannot rotten any other orange, the while loop will run to simply pop those from the queue.
+Since minTime will get incremented for one extra time, we set minTime to -1 initially.
+
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int n = grid.size(), m = grid[0].size(), fresh = 0, minTime = -1;
+        queue<pair<int, int>> Q;
+        vector<int> dir = {-1, 0, 1, 0, -1}; // Used for finding all 4 adjacent oranges
+        
+        // Pushing already rotten oranges into the queue
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(grid[i][j] == 2) Q.push({i, j});
+                else if(grid[i][j] == 1) fresh++;
+            }
+        }
+        
+        while(!Q.empty()){
+            minTime++;
+            int sz = Q.size();
+            for(int i = 0; i < sz; i++){
+                int row = Q.front().first;
+                int col = Q.front().second;
+                Q.pop();
+                
+                // Rotting oranges in all 4 adjacent directions and push them into the queue
+                for(int j = 0; j < 4; j++)
+                {
+                    int nrow = row + dir[j];
+                    int ncol = col + dir[j + 1];
+                    
+                    if(nrow >= 0 && ncol >= 0 && nrow < n && ncol < m && grid[nrow][ncol] == 1){
+                        grid[nrow][ncol] = 2;
+                        Q.push({nrow, ncol});
+                        fresh--;
+                    }
+                }
+            }
+        }
+        
+        if(fresh > 0) return -1; // Impossible to rot all the oranges
+        return (minTime < 0) ? 0 : minTime;
+    }
+};
