@@ -1,0 +1,22 @@
+// Time Complexity - Iterating through all the nodes takes O(N) time.
+// Space Complexity - Stack space taken due to recursion is O(N).
+// Explanation - For each node in our array, we use the L < Root < R property of a BST to recursively create its left and right subtrees.
+We create our root node using the middle node, by initally fixing start and end pointers to both ends of the array.
+The middle of the left half of our array makes the left node of the root node and the middle of the right half makes the right node.
+Thus we recursively create the root nodes of each subtree by using the middle node.
+
+class Solution {
+public:
+    TreeNode* createBST(vector<int> nums, int start, int end){
+        if(start > end) return NULL;
+        int mid = (start + end) / 2;
+        TreeNode* root = new TreeNode(nums[mid]);
+        root->left = createBST(nums, start, mid - 1);
+        root->right = createBST(nums, mid + 1, end);
+        return root;
+    }
+    
+    TreeNode* sortedArrayToBST(vector<int>& nums){
+        return createBST(nums, 0, nums.size() - 1);
+    }
+};
