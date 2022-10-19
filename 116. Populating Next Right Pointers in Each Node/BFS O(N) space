@@ -1,0 +1,29 @@
+// Time Complexity - Iterating through all the nodes takes O(N) time.
+// Space Complexity - Storing the nodes in a queue takes O(N) space.
+// Explanation - We perform level order traversal and maintain a prevNode and a currNode. 
+For every node traversed, if prevNode is not NULL, we set its next to currNode, and update the prevNode to currNode.
+For the last node in each level, we set its next to NULL.
+
+class Solution {
+public:
+    Node* connect(Node* root){
+        if(!root) return NULL;
+        queue<Node*> Q;
+        Q.push(root);
+        
+        while(!Q.empty()){
+            int sz = Q.size();
+            Node *currNode = NULL, *prevNode = NULL;
+            for(int i = 0; i < sz; i++){
+                currNode = Q.front();
+                Q.pop();
+                if(prevNode) prevNode->next = currNode;
+                prevNode = currNode;
+                if(currNode->left) Q.push(currNode->left);
+                if(currNode->right) Q.push(currNode->right);
+            }
+            currNode->next = NULL;
+        }
+        return root;
+    }
+};
