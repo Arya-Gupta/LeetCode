@@ -1,0 +1,19 @@
+// Time Complexity - For every node in the preorder traversal, we are essentially traversing the binary tree, hence time taken is O(N^2).
+// Space Complexity - Space taken by the recursive call stack is O(N^2).
+// Explanation - As we come across every node in the preorder traversal, we keep inserting it into our BST.
+
+class Solution {
+public:
+    TreeNode* insertBST(TreeNode* root, int val){
+        if(!root) return new TreeNode(val);
+        if(val > root->val) root->right = insertBST(root->right, val);
+        else root->left = insertBST(root->left, val);
+        return root;
+    }
+    
+    TreeNode* bstFromPreorder(vector<int>& preorder){
+        TreeNode* root = NULL;
+        for(auto val : preorder) root = insertBST(root, val);
+        return root;
+    }
+};
