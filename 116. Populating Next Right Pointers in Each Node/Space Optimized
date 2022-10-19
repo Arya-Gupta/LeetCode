@@ -1,0 +1,21 @@
+// Time Complexity - Visiting each node takes O(N) time.
+// Space Complexity - Since we are not using any extra space, space taken is O(1).
+// Explanation - Using temp, we travel to each level. We use the nodes at each level indicated by currNode to connect the next pointers of its child nodes.
+
+class Solution {
+public:
+    Node* connect(Node* root){
+        if(!root) return NULL;
+        Node* temp = root;
+        while(temp->left){
+            Node* currNode = temp; // We do not want to modify temp because it takes us to the next level
+            while(currNode){
+                currNode->left->next = currNode->right;
+                currNode->right->next = (currNode->next) ? currNode->next->left : NULL;
+                currNode = currNode->next;
+            }
+            temp = temp->left; // Go to the next level
+        }
+        return root;
+    }
+};
