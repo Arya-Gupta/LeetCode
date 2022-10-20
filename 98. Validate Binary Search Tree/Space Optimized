@@ -1,0 +1,25 @@
+// Time Complexity - Iterating through all the nodes in the BST takes O(N) time.
+// Space Complexity - Space used is O(1).
+// Explanation - We use the property that inorder traversal of a BST must return nodes in an increasing order. 
+Thus during inorder traversal, the value of a node must be greater than its previous node (except for the root node).
+
+class Solution {
+public:
+    void solve(TreeNode* root, TreeNode* &prevNode, bool &bst){
+        if(!root) return;
+        solve(root->left, prevNode, bst);
+        if(prevNode && prevNode->val >= root->val){
+            bst = false;
+            return;
+        }
+        prevNode = root;
+        solve(root->right, prevNode, bst);
+    }
+    
+    bool isValidBST(TreeNode* root){
+        bool bst = true;
+        TreeNode *prevNode = NULL;
+        solve(root, prevNode, bst);
+        return bst;
+    }
+};
