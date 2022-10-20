@@ -1,0 +1,35 @@
+// Time Complexity - Time taken to traverse nodes in LL is O(N).
+// Space Complexity - Space taken is O(1).
+// Explanation - We turn the LL circular and also calculate the length.
+Now instead of actually rotating the LL, we know the (length - k)th node from the beginning will be the head after rotating it k times.
+The (length - k)th node from the end of the original LL will be the node just before the new head. 
+We can remove the link from this node to the new head to make the new LL uncircular.
+
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k){
+        if(!head || !head->next) return head;
+        int length = 1; // Length of LL
+        ListNode* temp = head;
+        
+        // Making the LL circular
+        while(temp->next){
+            temp = temp->next;
+            length++;
+        }
+        temp->next = head;
+        
+        
+        // Find new head after k rotations
+        k = k % length; // This reduces k and handles the case of length < k
+        for(int i = 0; i < length - k; i++){
+            head = head->next;
+            temp = temp->next;
+        }
+        
+        // Make the LL uncircular
+        temp->next = NULL;
+        
+        return head;
+    }
+};
