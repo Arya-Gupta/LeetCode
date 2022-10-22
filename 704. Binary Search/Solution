@@ -1,0 +1,19 @@
+// Time Complexity - Time taken by binary search is O(logN base 2) because it reduces the elements to be searched by half each time.
+// Space Complexity - Since we do not use any extra space, space taken is O(1).
+// Explanation - If the element is greater than mid, we search to the right of mid, if the element is lesser than mid we search to its left and if it is equal, we return mid.
+If the element is not present in the array, we return -1.
+We use start + (end - start) / 2 instead of (start + end) / 2 to find mid in order to avoid integer overflow.
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int start = 0, mid = 0, end = nums.size() - 1;
+        while(start <= end){
+            mid = start + (end - start) / 2;
+            if(nums[mid] == target) return mid;
+            else if(target > nums[mid]) start = mid + 1;
+            else end = mid - 1;
+        }
+        return -1;
+    }
+};
