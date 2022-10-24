@@ -1,0 +1,25 @@
+// Time Complexity - Binary search takes O(logN base 2) time.
+// Space Complexity - Space taken is O(1).
+// Explanation - We perform a modified version of the binary search, where we check the unsorted part of the array for our minimum element.
+We can check if an element is the minimum element by checking whether it is smaller than the previous element.
+The condition nums[start] <= nums[mid] being true indicates that the right part of our array is unsorted, else the left part is unsorted.
+
+However our logic of checking the unsorted part of the array for the minimum element will not work if the part of the array currently being searched is completely sorted.
+For example: 4, 5, 6, 7, 0, 1, 2
+When nums[start] = 0, nums[mid] = 1, nums[end] = 2, we will end up searching the right part of the array because 0 <= 1.
+Hence we separately check if the entire current array being searched is sorted, by checking if nums[start] < nums[end], and return nums[start] if this is the case.
+
+class Solution {
+public:
+    int findMin(vector<int>& nums){
+        int n = nums.size(), start = 0, end = n - 1, mid;
+        while(start <= end){
+            if(nums[start] < nums[end]) return nums[start];
+            mid = start + (end - start) / 2;
+            if(nums[mid] <= nums[(mid + n - 1) % n]) return nums[mid];
+            else if(nums[start] <= nums[mid]) start = mid + 1;
+            else end = mid - 1;
+        }
+        return -1;
+    }
+};
