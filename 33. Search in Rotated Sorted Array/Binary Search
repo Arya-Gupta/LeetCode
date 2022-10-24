@@ -1,0 +1,38 @@
+// Time Complexity - Searching for the minimum element and binary search both take O(logN base 2). Hence time taken is O(logN base 2).
+// Space Complexity - Space taken is O(1).
+// Explanation - Study this problem first : https://github.com/Arya-Gupta/LeetCode/tree/main/153.%20Find%20Minimum%20in%20Rotated%20Sorted%20Array
+A rotated array can be divided into 2 sorted parts on the basis of its minimum element.
+For example: 4, 5, 6, 1, 2, 3 can be divided into 4, 5, 6 and 1, 2, 3.
+Now we apply the regular binary search algorithm on both of these parts and search for our target element.
+If they aren't present in either part, we return -1.
+
+class Solution {
+public:
+    int findMin(vector<int>& nums){
+        int n = nums.size(), start = 0, end = n - 1, mid;
+        while(start <= end){
+            if(nums[start] < nums[end]) return start;
+            mid = start + (end - start) / 2;
+            if(nums[mid] <= nums[(mid + n - 1) % n]) return mid;
+            else if(nums[start] <= nums[mid]) start = mid + 1;
+            else end = mid - 1;
+        }
+        return -1;
+    }
+    
+    int binarySearch(vector<int>& nums, int target, int start, int end) {
+        while(start <= end){
+            int mid = start + (end - start) / 2;
+            if(nums[mid] == target) return mid;
+            else if(target > nums[mid]) start = mid + 1;
+            else end = mid - 1;
+        }
+        return -1;
+    }
+    
+    int search(vector<int>& nums, int target){
+        int n = nums.size(), minPos = findMin(nums);
+        if(binarySearch(nums, target, 0, minPos - 1) != -1) return binarySearch(nums, target, 0, minPos - 1);
+        return binarySearch(nums, target, minPos, n - 1);
+    }
+};
