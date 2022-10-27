@@ -1,0 +1,45 @@
+// Time Complexity - Binary search takes O(logN base 2) time.
+// Space Complexity - Space taken is O(1).
+// Explanation - To solve this problem, we use a modified version of binary search.
+We know that mid is our target element, if the element is not equal to either its next or previous element (since array is sorted array).
+If our mid isn't the target element, we need to search the left/right part of the array.
+
+In an array where every element appears twice (1, 1, 2, 2) will always have an even number of elements.
+In such an array, any element at an odd index is equal to the element at its previous index.
+However, an array with 1 non-repeated element will always have an odd number of elements.
+In such an array, we can easily identify where the non-repeated element lies based upon whether our mid element satisfies this property.
+
+Satisfying either (mid is odd and nums[mid] == nums[prev]) or (mid is even and nums[mid] == nums[next]) means that all elements to the left of mid are in pairs - so we should search to its right.
+Example:
+[1, 1, 2, 2, 3, 4, 4]
+ 0  1  2  3  4  5  6
+ 
+mid = 3, nums[mid] = 2
+mid doesn't hold our target element since arr[mid] = arr[prev], thus we need to move left/right.
+We know mid is an odd index, and this is a result of having only elements which are in pairs to the left of mid.
+Hence we should search to the right of mid for our target element.
+ 
+[1, 1, 2, 2, 3]
+ 0  1  2  3  4 
+  
+ mid = 2, nums[mid] = 2
+ mid doesn't hold our target element since arr[mid] = arr[next], thus we need to move left/right.
+ We know mid is an even index, and this is a result of having only elements which are in pairs to the left of arr[next].
+ Hence we should search to the right of mid for our target element.
+   
+ class Solution {
+public:
+    int singleNonDuplicate(vector<int>& nums){
+        int n = nums.size(), start = 0, end = n - 1, mid, next, prev;
+        if(n == 1) return nums[0];
+        while(start <= end){
+            mid = start + (end - start) / 2;
+            next = (mid + 1) % n;
+            prev = (mid + n - 1) % n;
+            if(nums[mid] != nums[prev] && nums[mid] != nums[next]) return nums[mid];
+            else if((mid % 2 && nums[mid] == nums[prev]) || (!(mid % 2) && nums[mid] == nums[next])) start = mid + 1;
+            else end = mid - 1;
+        }
+        return -1;
+    }
+};
