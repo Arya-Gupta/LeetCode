@@ -1,0 +1,28 @@
+// Time Complexity - Since we iterate through all the nodes, time taken is O(N).
+// Space Complexity - Since we store the nodes in a queue, space taken is O(N).
+// Explanation - We perform BFS and calculate the largest value of each level by storing it in largest.
+At the end of traversing each row, we push largest into our array.
+
+class Solution {
+public:
+    vector<int> largestValues(TreeNode* root){
+        if(!root) return {};
+        vector<int> ans;
+        queue<TreeNode*> Q;
+        Q.push(root); 
+        
+        while(!Q.empty()){
+            int sz = Q.size(); 
+            int largest = INT_MIN;
+            for(int i = 0; i < sz; i++){
+                TreeNode* currNode = Q.front();
+                Q.pop();
+                largest = max(largest, currNode->val);
+                if(currNode->left) Q.push(currNode->left); 
+                if(currNode->right) Q.push(currNode->right); 
+            }
+            ans.push_back(largest);
+        }
+        return ans;  
+    }
+};
