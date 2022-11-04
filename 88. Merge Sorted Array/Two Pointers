@@ -1,4 +1,4 @@
-// Time Complexity -
+// Time Complexity - Traversing over m + n elements takes O(m + n) time.
 // Space Complexity - Space taken is O(1).
 // Explanation - We place pointer i at index m - 1 of nums1, j at index n - 1 of nums2 and k at index m + n - 1 of nums1.
 We start comparing the elements at i and j, and accordingly place the greater number at index k, and accordingly shift them left.
