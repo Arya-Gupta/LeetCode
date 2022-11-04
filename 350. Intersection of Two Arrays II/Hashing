@@ -1,0 +1,19 @@
+// Time Complexity - Iterating through the arrays takes O(m + n) time.
+// Space Complexity - Storing the elements in nums1 in an unordered_map is O(m).
+// Explanation - We store the elements in nums1 in an unordered_map and search for common elements in nums2.
+
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2){
+        vector<int> ans;
+        unordered_map<int, int> mp;
+        for(auto num : nums1) mp[num]++;
+        for(auto num : nums2){
+            if(mp[num] > 0){
+                mp[num]--;
+                ans.push_back(num);
+            }
+        }
+        return ans;
+    }
+};
