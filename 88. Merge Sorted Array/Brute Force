@@ -1,0 +1,12 @@
+// Time Complexity - Sorting the array takes O((m + n) log(m + n)).
+// Space Complexity - Space taken is O(1).
+// Explanation - Since nums1 already has a size of m + n to accomodate the rest of the elements, we insert the the values in nums2 into nums1. 
+Sorting the new nums1 gives us the merged sorted array.
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        for(int i = m; i < m + n; i++) nums1[i] = nums2[i - m];
+        sort(nums1.begin(), nums1.end());
+    }
+};
