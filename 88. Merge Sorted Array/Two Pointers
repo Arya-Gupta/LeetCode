@@ -1,0 +1,24 @@
+// Time Complexity -
+// Space Complexity - Space taken is O(1).
+// Explanation - We place pointer i at index m - 1 of nums1, j at index n - 1 of nums2 and k at index m + n - 1 of nums1.
+We start comparing the elements at i and j, and accordingly place the greater number at index k, and accordingly shift them left.
+Thus we place the greatest elements towards the end of nums1, converting nums1 into a merged sorted array.
+This loop continues until either i or j shifts to the left of index 0 (elements of either nums1 or nums2 have been exhausted)
+
+The size of nums1 (final array) is m + n while the size of nums2 is n.
+Thus after the end of our loop, if j is still >= 0, there are still some elements in nums2 left to be included in our merged array - thus we loop through all the remaining element in nums2 and place them in their correct position in nums1.
+
+In case we exit upon exhausting elements in nums2, all the elements in nums1 will already be present at their original positions. (since the arrays are individually sorted)
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n){
+        int i = m - 1, j = n - 1, k = m + n - 1;
+        while(i >= 0 && j >= 0)
+        {
+            if(nums1[i] > nums2[j]) nums1[k--] = nums1[i--];
+            else nums1[k--] = nums2[j--];
+        }
+        while(j >= 0) nums1[k--] = nums2[j--];
+    }
+};
