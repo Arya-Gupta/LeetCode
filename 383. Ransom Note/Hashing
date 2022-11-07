@@ -1,0 +1,16 @@
+// Time Complexity - Time taken to iterate through the the strings is O(N).
+// Space Complexity - Space taken to store characters is O(N).
+// Explanation - We store characters in magazine in an unordered_map. 
+As we iterate through the characters in randsomNote, we keep reducing their frequency in the unordered_map. If the frequency is already 0, ransomeNote cannot be formed.
+
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        unordered_map<char, int> mp;
+        for(auto ch : magazine) mp[ch]++;
+        for(auto ch : ransomNote){
+            if(!mp[ch]--) return false;
+        }
+        return true;
+    }
+};
