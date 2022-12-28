@@ -1,0 +1,20 @@
+// Time Complexity - 
+// Space Complexity -
+// Explanation - Every row n has 2^(n - 1) elements.
+For every n, index 1 to mid is the same as the previous row, while the rest of the elements are ! of these elements.
+
+0
+01
+0110
+01101001
+0110100110010110
+
+class Solution {
+public:
+    int kthGrammar(int n, int k) {
+        if(n == 1 && k == 1) return 0;
+        int mid = pow(2, n - 1) / 2;
+        if(k <= mid) return kthGrammar(n - 1, k);
+        else return !kthGrammar(n - 1, k - mid);
+    }
+};
