@@ -1,0 +1,37 @@
+// Time Complexity -
+// Space Complexity -
+// Explanation -
+
+class Solution {
+public:
+    void findPermutations(string ip, string op, vector<string> &permutations){
+        if(ip == ""){
+            permutations.push_back(op);
+            return;
+        }
+
+        char ch = ip.front();
+
+        if(isalpha(ch)){
+            string op1 = op, op2 = op;
+            op1.push_back(toupper(ch));
+            op2.push_back(tolower(ch));
+            ip.erase(ip.begin());
+            findPermutations(ip, op1, permutations);
+            findPermutations(ip, op2, permutations);
+        }
+
+        else if(isdigit(ch)){
+            string op1 = op;
+            op1.push_back(ch);
+            ip.erase(ip.begin());
+            findPermutations(ip, op1, permutations);
+        }
+    }
+
+    vector<string> letterCasePermutation(string s){
+        vector<string> permutations;
+        findPermutations(s, "", permutations);
+        return permutations;
+    }
+};
