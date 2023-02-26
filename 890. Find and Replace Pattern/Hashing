@@ -1,0 +1,23 @@
+// Time Complexity - Since we are iterating through each letter of each word, time taken is O(N * L) where L = length of each word.
+// Space Complexity - Since we are storing the letters in a hashmap, space taken is O(N * L).
+// Explanation - We convert each word into a similar pattern with the help of hashmaps.
+The first unique letter of each word becomes 'a', the second unique letter becomes 'b' and so on.
+Thus 'ppghhooopg' is converted into 'aabccdddab'.
+
+class Solution {
+public:
+    vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
+        vector<string> ans;
+        for(auto word : words) 
+            if(convert(pattern) == convert(word)) ans.push_back(word);
+        return ans;
+    }
+
+    string convert(string s){
+        unordered_map<char, char> newLetter;
+        char letter = 'a';
+        for(auto ch : s) if(!newLetter[ch]) newLetter[ch] = letter++;
+        for(int i = 0; i < s.length(); i++) s[i] = newLetter[s[i]];
+        return s;
+    }
+};
