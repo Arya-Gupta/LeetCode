@@ -1,0 +1,41 @@
+// Time Complexity - The time complexity of push operation is O(N) due to transferring elements into stack 2. 
+// Space Complexity - The auxiliary space complexity is O(N) due to storing elements in a stack.
+// Explanation - 
+push() - For pushing an element into the stack first all the elements in stack 1 are transferred to stack 2, then the element is pushed to stack 1, then the elements in stack 2 are transferred back to stack 1.
+pop() - The top element of the stack is returned and then popped.
+peek() - The top element of the stack is the front element of the queue.
+empty() - The queue is empty if the stack 1 is empty.
+
+
+class MyQueue {
+public:
+    stack<int> st1, st2;
+    MyQueue() { 
+    }
+    
+    void push(int x) {
+        while(!st1.empty()){
+            st2.push(st1.top());
+            st1.pop();
+        }
+        st1.push(x);
+        while(!st2.empty()){
+            st1.push(st2.top());
+            st2.pop();
+        }
+    }
+    
+    int pop() {
+        int n = st1.top();
+        st1.pop();
+        return n;
+    }
+    
+    int peek() {
+        return st1.top();
+    }
+    
+    bool empty() {
+        return st1.empty(); 
+    }
+};
