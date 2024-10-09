@@ -1,0 +1,66 @@
+// Time Complexity - 
+push() - O(1)
+pop() - O(1) amortized or O(N)
+peek() - O(1) amortized or O(N)
+empty() - O(1)
+// Space Complexity - O(N) for storing all elements in a stack.
+// Explanation - 
+push() - Element is directly pushed to input stack
+pop() - If output stack has any element, the top element is popped. If the output stack is empty, elements from input stack are transferred to output stack and then the top element is popped.
+peek() - All elements from input stack are transferred to output stack and the top element is returned.
+empty() - If there are no elements in either stack.
+
+class MyQueue {
+public:
+    stack<int> input, output;
+
+    MyQueue() {}
+
+    void push(int x) { input.push(x); }
+
+    int pop() {
+        peek();
+        int n = output.top();
+        output.pop();
+        return n;
+    }
+
+    int peek() {
+        if (output.empty()) {
+            while (input.size()) {
+                output.push(input.top());
+                input.pop();
+            }
+        }
+        return output.top();
+    }
+
+    bool empty() { return input.empty() && output.empty(); }
+};
+class MyQueue {
+public:
+    stack<int> input, output;
+
+    MyQueue() {}
+
+    void push(int x) { input.push(x); }
+
+    int pop() {
+        peek();
+        int n = output.top();
+        output.pop();
+        return n;
+    }
+
+    int peek() {
+        if (output.empty()) {
+            while (input.size()) {
+                output.push(input.top());
+                input.pop();
+            }
+        }
+        return output.top();
+    }
+
+    bool empty() { return input.empty() && output.empty(); }
+};
