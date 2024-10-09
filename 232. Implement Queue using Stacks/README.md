@@ -1,4 +1,4 @@
-## https://leetcode.com/problems/implement-queue-using-stacks/description/
+## https://leetcode.com/problems/implement-queue-using-stacks/
 
 **Difficulty - Easy**
 
